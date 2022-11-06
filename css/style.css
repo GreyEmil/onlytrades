@@ -1353,7 +1353,7 @@ ul.minicart .cart-price .new {
 .breadcrumb-content .breadcrumb li {
 	text-transform: uppercase;
 	font-weight: 600;
-	color: #f2a900;
+	color: rgb(54, 169, 225);
 }
 
 .breadcrumb-content h2 span {
@@ -7827,6 +7827,9 @@ ul.minicart .cart-price .new {
 .home-six-footer .copyright-wrap {
 	padding: 31px 0;
 }
-.logoi{
+.logoh{
 	width: 200px;
+}
+.logof{
+width: 80%;
 }
