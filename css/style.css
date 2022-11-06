@@ -1069,7 +1069,7 @@ ul.minicart .cart-price .new {
 .third-banner-content h2 span,
 .third-title-style h2 span,
 .third-title-style .vertical-title {
-	color: #ee5519;
+	color: rgb(54, 169, 225);
 }
 
 .third-header-bg .menu-style-two .navbar-wrap>ul>li>a {
@@ -1110,7 +1110,7 @@ ul.minicart .cart-price .new {
 }
 
 .third-header-bg .navbar-wrap ul li>.submenu {
-	border: 1px solid #ee551945;
+	border: 1px solid rgb(54, 169, 225)45;
 	background: #1c1f26;
 }
 
@@ -1684,7 +1684,7 @@ ul.minicart .cart-price .new {
 	bottom: -20px;
 	height: 20px;
 	width: 1065px;
-	background: #ee5519;
+	background: rgb(54, 169, 225);
 	margin: 0 auto;
 	right: 0;
 	opacity: .35;
@@ -6828,7 +6828,7 @@ ul.minicart .cart-price .new {
 }
 
 .h-seven-slider-item:nth-child(2) .h-seven-slider-content .title span {
-	color: #ee5519;
+	color: rgb(54, 169, 225);
 }
 
 .h-seven-slider-item:nth-child(3) .h-seven-slider-content .title span {
@@ -6836,16 +6836,16 @@ ul.minicart .cart-price .new {
 }
 
 .h-seven-slider-item:nth-child(2) .h-seven-slider-content .rotated-btn {
-	background: #ee5519;
+	background: rgb(54, 169, 225);
 	color: #fff;
 }
 
 .h-seven-slider-item:nth-child(2) .h-seven-slider-content .rotated-btn::before {
-	border-top: 54px solid #ee5519;
+	border-top: 54px solid rgb(54, 169, 225);
 }
 
 .h-seven-slider-item:nth-child(2) .h-seven-slider-content .rotated-btn::after {
-	border-top: 54px solid #ee5519;
+	border-top: 54px solid rgb(54, 169, 225);
 }
 
 .h-seven-slider-item:nth-child(2) .h-seven-slider-content .rotated-btn:hover {
@@ -6914,7 +6914,7 @@ ul.minicart .cart-price .new {
 }
 
 .h-seven-slider-active .slick-dots li:nth-child(2) button {
-	background: #ee5519;
+	background: rgb(54, 169, 225);
 }
 
 .h-seven-slider-active .slick-dots li:nth-child(3) button {
