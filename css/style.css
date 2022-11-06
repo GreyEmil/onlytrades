@@ -1320,6 +1320,13 @@ ul.minicart .cart-price .new {
 	background-position: center;
 	background-size: cover;
 }
+.breadcrumb-bg1 {
+	background-image: url(../img/slider/slider_bg.jpg);
+	padding-top: 275px;
+	padding-bottom: 170px;
+	background-position: center;
+	background-size: cover;
+}
 
 .s-breadcrumb-bg {
 	background-image: url(../img/bg/breadcrumb_bg02.jpg);
