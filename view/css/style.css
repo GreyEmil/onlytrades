@@ -1335,11 +1335,12 @@ ul.minicart .cart-price .new {
 	background-size: cover;
 }
 .breadcrumb-bg3 {
-	background-image: url(../img/bg/cta_bg.jpg);
+	background-image: url(../img/bg/streaming_bg02.jpg);
 	padding-top: 275px;
 	padding-bottom: 170px;
 	background-position: center;
 	background-size: cover;
+	
 }
 
 
@@ -2387,15 +2388,20 @@ ul.minicart .cart-price .new {
 }
 
 /* 9. Game Released */
-.released-game-item {
+.released-game-item-fares {
 	display: flex;
 	align-items: center;
-	background: #fff;
+	
+	border:5px groove    rgb(9, 91, 133);
 	box-shadow: 0px 1px 13px 0px rgba(128, 18, 40, 0.1);
 	position: relative;
 	z-index: 1;
 	padding: 20px 20px 20px;
-	margin: 50px 0;
+	margin: auto;
+	background-image: url(../img/bg/streaming_bg.jpg);
+	width: 95%;
+	margin-bottom: 20px;
+	
 }
 
 .released-game-img {
@@ -2455,10 +2461,12 @@ ul.minicart .cart-price .new {
 	content: "";
 	background-image: url(../img/images/released_game_brush.png);
 	position: absolute;
-	right: -50px;
+	right: auto;
+	margin-left: -100px;
 	top: 0;
 	height: 100%;
-	width: 324px;
+	width: 500px;
+	background-size:500px;
 	background-repeat: no-repeat;
 	z-index: -1;
 }
@@ -5329,7 +5337,7 @@ ul.minicart .cart-price .new {
 	align-items: center;
 	justify-content: space-between;
 	padding: 40px 65px;
-	margin-top: -55px;
+	margin-top: 55px;
 	position: relative;
 	z-index: 1;
 	margin-bottom: 80px;
