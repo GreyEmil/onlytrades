@@ -1,0 +1,26 @@
+.report
+{
+  z-index: 99999999;
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  width:750px;;
+  height: 750px;
+  margin-top: -375px; 
+  margin-left: -375px;
+  background-image: url(../img/bg/home_four_area_bg.png);
+  background-size: cover;
+  display: none;
+}
+.inputt
+{
+ background-color: rgb(174, 178, 183);
+ width:80%;
+ margin: 10px 60px;
+}
+label
+{
+    margin: 10px 60px;
+    font-size: 20px;
+    color: azure;
+}

@@ -1,4 +1,4 @@
-
+<?php include('../controller/userController.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,15 +19,13 @@
   <link rel="stylesheet" href="css/register.css" />
   <link rel="stylesheet" href="css/login.css" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/addauction.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
   <!-- Main CSS-->
 </head>
 
 <body>
-<div id="popup" class="popup">
-            <div id="info"></div>
-            <div id="link" style="margin:auto;"></div>
-        </div>
   <!-- preloader -->
   <div id="preloader">
     <div id="loading-center">
@@ -36,6 +34,21 @@
       </div>
     </div>
   </div>
+  <?php if (($_SESSION['email'] == 'success') && ($_SESSION['register'] == 'success')) { ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options.timeOut = 2500; // 1.5s
+        toastr.success('Check your email for verification!', 'Successfully registered');
+      });
+    </script>
+  <?php } elseif (($_SESSION['email'] != 'success') || ($_SESSION['register'] != 'success')) { ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options.timeOut = 2500; // 1.5s
+        toastr.error('Check your information!', 'Error');
+      });
+    </script>
+  <?php } ?>
   <!-- preloader-end -->
   <!-- <header>
       <div id="sticky-header" class="transparent-header-login">
@@ -75,8 +88,8 @@
               Register <span style="color: rgb(54, 169, 225)">Now !</span>
             </h2>
 
-            <form  id="formid" method="post" action="../controller/addUser.php" enctype="multipart/form-data">
-              <div class="row row-space">
+            <form  id="formid" method="POST" action="../controller//userController.php" enctype="multipart/form-data">
+            <div class="row row-space">
                   <div class="col-2">
                     <div class="input-group">
                       <label class="label">Username</label>
@@ -239,8 +252,6 @@
       scale: 1.1,
     });
   </script>
-  <!-- Main JS-->
-  <script src="js/main.js"></script>
   <script>
     var username=document.getElementById('username');
     var firstName=document.getElementById('firstName');
@@ -395,7 +406,9 @@
 
     
   </script>
-  <script src="js/notification.js"></script>
+  <!-- Main JS-->
+  <script src="js/register.js"></script>
+  <script src="js/main.js"></script>
 </body>
 <!-- This templates was made by Colorlib (https://colorlib.com) -->
 

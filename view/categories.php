@@ -86,69 +86,50 @@
                     <div class="col-12">
                         <div class="main-menu menu-style-two">
                             <nav>
-                                <div class="logo">
-                                    <a href="index.php"><img src="img/logo/logo.png" class="logoh" alt="logo"></a>
-                                </div>
-                                <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
-                                    <ul>
-                                        <li><a href="index.php">Home</a></li>
-                                        <!-- <li><a href="#">Pages</a></li> -->
-                                        <!-- <li><a href="game-overview.html">Overview</a></li> -->
-                                        <!-- <li><a href="community.html">Community</a></li> -->
-                                        <li><a href="trade.html">Trade</a></li>
-                                        <li class="show"><a href="../controller/displayAllAuctions.php">Auction</a>
-                                        <li ><a href="../controller/displayAllCompetitions.php">Competitions</a>
-                                        <li><a href="POINTSSHOP.html">POINTS SHOP</a></li>
-                                        <li><a href="forums.html">FORUM</a></li>
-                                        <!-- <ul class="submenu">
-                                                        <li><a href="blog.html">News Page</a></li>
-                                                        <li><a href="blog-details.html">News Details</a></li>
-                                                    </ul>
-                                                </li> -->
-                                        <li><a href="../controller/displayOwnedAuctions.php">My Auctions</a></li>
+                            <div class="logo">
+                  <a href="index.php"><img src="img/logo/logo.png" class="logoh" alt="logo" /></a>
+                </div>
+                <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
+                  <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <!-- <li><a href="#">Pages</a></li> -->
+                    <!-- <li><a href="game-overview.html">Overview</a></li> -->
+                    <!-- <li><a href="community.html">Community</a></li> -->
+                    <li><a href="trade.php">Trade</a>
+                                            <ul class="submenu">
+                                                <li><a href="OnGoingTrades.php">My ongoing trades</a></li>
+                                            </ul>
+                                        </li>
+                    <li >
+                                    <a href="../controller/displayAllAuctions.php">Auctions</a>
+                                    <ul style="display: flex;flex-direction: column;" class="submenu">
+                                        <li><a href="displayownedauctionsview.php">my auctions</a></li>
                                     </ul>
-                                </div>
-                                <div class="header-action">
+                                </li>
+                    <li><a href="../controller/displayAllCompetitions.php">Competitions</a>
+                    <li><a href="POINTSSHOP.php">POINTS SHOP</a></li>
+                    <!-- <ul class="submenu">
+                                                <li><a href="blog.html">News Page</a></li>
+                                                <li><a href="blog-details.html">News Details</a></li>
+                                            </ul>
+                                        </li> -->
+                    <li class="show"><a href="categories.php">FORUM</a></li>
+                    <li >
+                                    <a href="javascript:;">Report</a>
+                                    <ul style="display: flex;flex-direction: column;" class="submenu">
+                                        <li><a href="ajouterreclamation.php">Send Report</a></li>
+                                        <li><a href="consulterreclamation.php">Report History</a></li> 
+                                    </ul>
+                                </li>
+                  </ul>
+                </div>
+                <div class="header-action">
                                     <ul>
-                                        <li class="header-shop-cart"><a href="#">
-                                                <img src="img/icon/tradeCart.png" width="25px" alt="tradeCart">
-                                                <span>0</span></a>
-                                            <ul class="minicart">
-                                                <li class="d-flex align-items-start">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/cart_p01.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-content">
-                                                        <h4>
-                                                            <a href="#">Xbox One Controller</a>
-                                                        </h4>
-                                                        <div class="cart-price">
-                                                            <span class="new">$229.9</span>
-                                                            <span>
-                                                                <del>$229.9</del>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="del-icon">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="total-price">
-                                                        <span class="f-left">Total:</span>
-                                                        <span class="f-right">$239.9</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="checkout-link">
-                                                        <a href="cart.html">Shopping Cart</a>
-                                                        <a class="red-color" href="checkout.html">Checkout</a>
-                                                    </div>
-                                                </li>
+                                        <li class="header-shop-cart"><a href="#"><i class="fas fa-shopping-basket"
+                                                    style="color:rgb(54, 169, 225);"></i><span id='qofbasket'>0</span></a>
+                                            <ul id='shopcart' class="minicart">
+                                                
+                                                
                                             </ul>
                                         </li>
                                         <li class="header-search"><a href="#" data-toggle="modal"
@@ -221,6 +202,7 @@
                                                 
                                             </tr>
                                         </thead>
+                                        
                                         <tbody>
                                             <tr class="community-post-type">
                                                 <th><span>Game Concept</span></th>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Teko:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <style>
+        input[type=file],
+        input[type=submit] {
+          background-color: #62529c;
+          border: none;
+          color: #fff;
+          padding: 15px 30px;
+          text-decoration: none;
+          margin: 4px 2px;
+          cursor: pointer;
+          border-radius: 8px;
+        }
+      </style>
+</head>
+<body>
+    <form method="POST" action="rec_dashboard.php" enctype="multipart/form-data">
+        
+        <h1>REPORT A PROBLEM !</h1>
+        <p>FILL THE FORM IF YOU WANT TO REPORT SOMETHING </p>
+        
+        <div class="main">
+            <img src="img.png" alt="img">
+            <div class="container">
+                <div class="grouped">
+                    <div class="inputGroup">
+                        <label for="name_c">Name</label><br>
+                        <input type="text" id="name_c" name="name_c"><br>
+                    </div>
+
+                    <div class="inputGroup">
+                        <label for="prename_c">LastName</label><br>
+                        <input type="text" id="prename_c" name="prename_c"><br>
+                    </div>
+                </div>
+
+                <div class="grouped">
+                    <div class="inputGroup">
+                        <label for="n_c">Account Number</label><br>
+                        <input type="text" id="n_c" name="n_c"><br>
+                    </div>
+
+                    <div class="inputGroup">
+                        <label for="dt_inc">Date Of Birth</label><br>
+                        <input type="date" id="dt_inc" name="dt_inc" ><br>
+                    </div>
+                </div>
+
+                <div class="grouped">
+                    <div class="inputGroup">
+                        <label for="tlf">Phone Number</label><br>
+                        <input type="tel" id="tlf" name="tlf"><br>
+                    </div>
+
+                    <div class="inputGroup">
+                        <label for="email_c">Email Adresse</label><br>
+                        <input type="email" id="email_c" name="email_c"><br>
+                    </div>
+                </div>
+
+                <div class="textGroup">
+                    <label for="decription">Description</label><br>
+                    <textarea id="decription" name="decription" rows="10" cols="50" ></textarea><br>
+                </div>
+
+                <div class="send">
+                    <label for="file">Add Evidence</label><br>
+                    <div class="grouped">
+                        <input type="file" id="file" name="file" ><br>
+                        <input type="submit" value="Submit" style="margin-left:5rem ;"><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

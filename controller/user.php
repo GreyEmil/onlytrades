@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(!isset($_SESSION))session_start();
 error_reporting(E_ERROR | E_PARSE);
 require '../model/userModel.php';
 require '../model/auctionModel.php';
@@ -10,9 +10,9 @@ class user
     userModel::checkExistance($userName,$email);
   }
 
-  public static function signUp($userInfo,$photo)
+  public static function signUp($userInfo,$photo,$code)
   {
-    $user=userModel::signUp($userInfo,$photo);
+    $user=userModel::signUp($userInfo,$photo,$code);
     $_SESSION["user"]=$user;
     $_SESSION["ownedAuctions"]=auctionModel::fetchOwnedAuctions();
     header("location: ../view/profile.php");

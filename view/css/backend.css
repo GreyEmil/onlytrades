@@ -266,3 +266,68 @@ input[type='radio']:checked:after {
 {
 	
 }
+
+.coup
+{
+    margin-bottom: 15px;
+}
+.ticket-subject
+{   
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.ticket-message-be
+{
+    font-size: 12px;
+    line-height: 20px;
+    color: #fffefe;
+    font-weight: 350;
+}
+
+.ticket-content-be
+{
+    padding:0 10px 50px 10px;
+    border-bottom: 1px solid #fffefe;
+    margin-bottom: 20px;
+    
+}
+.reply
+{
+    width:100%
+}
+.reply-btn
+{
+    padding: 10px;
+    background-color: rgb(54, 169, 225);
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+    transition: 500ms;
+    cursor: pointer;
+}
+.reply-btn:hover
+{
+    background-color: rgb(103, 196, 242);
+}
+.user-image
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 60%;
+}
+.ticket-username
+{
+    font-size: 12px;
+    font-weight: 600;
+    color: #a1acba;
+}
+
+.reply-date
+{
+    font-size: 10px;
+    font-weight: 400;
+    color: #a9b4c3;
+}

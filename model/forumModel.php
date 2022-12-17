@@ -42,22 +42,42 @@ class forumModel
       $req->execute(array($thread["comments"][$i]["id_writer"]));
       $thread["comments"][$i]["user"]=$req->fetchAll()[0];
     }
+    $thread["likes"]=forumModel::getLikes($idThread);
+    if(isset($_SESSION["user"]["id"]))
+    $thread["liked"]=forumModel::checkIfLiked($idThread,$_SESSION["user"]["id"]);
+    else $thread["liked"]="notliked";
     return $thread;
 
   }
-  public static function addLike($idThread,$idUser)
+  public static function checkIfLiked($idThread,$idUser)
   {
     $db=config::getConnexion();
     $req=$db->prepare("SELECT * FROM thread_vote where id_thread=? AND id_user=? AND type=?");
     $req->execute(array($idThread,$idUser,1));
     if(count($req->fetchAll())==0)
     {
-      $req=$db->prepare("INSERT  INTO thread_vote (id_thread,id_user,type) VALUE (?,?,?)");
-      $req->execute(array($idThread,$idUser,1));
-      return 'done';
+      return 'notliked';
     }
     else {
       return 'liked';
+    }
+  }
+  public static function addLike($idThread,$idUser)
+  {
+    $db=config::getConnexion();
+    $req=$db->prepare("SELECT * FROM thread_vote where id_thread=? AND id_user=? AND type=?");
+    $req->execute(array($idThread,$idUser,1));
+    $check=forumModel::checkIfLiked($idThread,$idUser);
+    if($check=='notliked')
+    {
+      $req=$db->prepare("INSERT  INTO thread_vote (id_thread,id_user,type) VALUE (?,?,?)");
+      $req->execute(array($idThread,$idUser,1));
+      return 'liked';
+    }
+    else {
+      $req=$db->prepare("DELETE FROM thread_vote WHERE id_user=? AND id_thread=?");
+      $req->execute(array($idUser,$idThread));
+      return 'unliked';
     }
   }
   public static function getLikes($idThread)

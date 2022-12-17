@@ -1,0 +1,98 @@
+.main{
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+.top{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+.top_right h1{
+font-family: Arial, Helvetica, sans-serif;
+font-size: 30px;
+}
+.top_right p{
+font-size:20px;
+color:rgb(90, 90, 90);
+}
+.img img{
+  width: 250px;
+}
+.mid{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.livraison h1{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+.facture h1{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+.livraison p{
+  font-size:17px;
+  color:rgb(52, 51, 51);
+}
+.facture p{
+  font-size:17px;
+  color:rgb(52, 51, 51);
+}
+.bot{
+margin-top: 3rem;
+}
+.fact{
+  display: flex;
+  justify-content: center;
+}
+.fact th, td{
+padding: 15px;
+text-align: left;
+}
+.fact th{
+  background-color: #4582b4;
+  color: white;
+  font-size: 18px;
+}
+.produit th{
+  background-color: #4582b4;
+  color: white;
+  font-size: 18px;    
+}
+.produit th, td{
+  padding: 15px;
+  text-align: left;
+}
+.produit{
+  display: flex;
+  justify-content: center;
+  margin-top:3REm;
+}
+.adc{
+  display: flex;
+  justify-content:flex-end;
+  margin-top:3REm;
+}
+.vert{
+  background-color: #4582b4;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;  
+}
+.vert td{
+  padding: 15px;
+  text-align: left;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.alnright { margin-left: auto; }
+.table {
+  width: 100%;
+}
+.right{
+  margin-left: auto;
+
+}

@@ -1,7 +1,7 @@
 <?php if(!isset($_SESSION)) session_start() ;
 require_once "../controller/forum.php";
 $_SESSION["tempThread"]=forum::fetchThread($_GET["id"]);
-forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
+if(isset($_SESSION["user"]["id"]))forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
 
 ?>
 <!doctype html>
@@ -32,6 +32,7 @@ forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/forum.css">
+        <link rel="stylesheet" href="css/report.css">
         <script src="https://kit.fontawesome.com/9ee4261700.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -245,6 +246,7 @@ forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
                                                             </div>
                                                             <div class="col message">
                                                                 <div><?php echo $_SESSION["tempThread"]["info"]["content"]; ?></div>
+                                                                <div class="like"><i id="like" class="fa-regular fa-thumbs-up <?php if($_SESSION["tempThread"]["liked"]!="liked")echo "like-btn"; else echo "liked";?>"></i><div id="likes"class="like-nbr"><?php echo $_SESSION["tempThread"]["likes"]; ?></div><i class="fa-solid fa-exclamation" style="color:red;font-size:20px;position:relative;left:50%"  id="<?php echo $_SESSION["tempThread"]["user"]["username"]?>" onclick="reportPrompt(this)"></i></div>
                                                             </div>
                                                         </div>
                                                         <?php foreach($_SESSION["tempThread"]["comments"] AS $comment)
@@ -268,6 +270,7 @@ forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
                                                            <div class="col message" >
                                                                 <div class="date">'.$comment["last_modification"].'</div>
                                                                <div class="content">'.$comment["content"].'</div>
+                                                               <div class="like" id="'.$comment["user"]["id"].'" onclick="reportPromptC(this,'.$comment["id"].')"><i class="fa-solid fa-exclamation" style="color:red;font-size:20px;position:relative;left:50%"></i></div>
                                                            </div>
                                                            
                                                        </div>';
@@ -435,6 +438,20 @@ forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
             </div>
         </footer>
         <!-- footer-area-end -->
+        <div class="report" id="report">
+    <form id="formF" method="post" action="../controller/report.php" enctype="multipart/form-data">
+        <label for="username">Username</label>
+        <input class="inputt" type="text" id ="username" name="username"  placeholder="Item Name" required="required" />
+        
+        <p id="name_error" class="error" ></p>
+        <textarea class="inputt"  name="message" id="message"  placeholder="Item Description" required ></textarea>
+        <p id="description_error" class="error"></p>
+        <input class="inputt" type="text" id ="id_thread" style="display:none" name="id_thread"  placeholder="Item Name" value="<?php echo $_SESSION["tempThread"]["info"]["id"]; ?>"  />
+        <input class="inputt" type="text" id ="id_reporter" style="display:none" name="id_reporter"  placeholder="Item Name" value="<?php echo $_SESSION["user"]["id"]; ?>"  />
+        <input class="inputt" type="text" id ="type" style="display:none" name="type"  placeholder="Item Name" value=""  />
+        <input class="inputt" type="text" id ="id_comment" style="display:none" name="id_comment"  placeholder="Item Name" value=""  />
+        <button type="submit" name="form_submit" id="form_submit" class="btnn btnn-primary btnn-block btnn-large">Report</button>
+    </form>
 
 
 
@@ -462,7 +479,7 @@ forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
         <script src="js/main.js"></script>
         <script src="js/vendor/jquery-3.4.1.min.js"></script>
         <script>
-            $("#like_btn").click(function()
+            $("#like").click(function()
             {
                 $.when($.ajax({
                     url:'../controller/Like.php',
@@ -470,7 +487,11 @@ forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
                     data:{'idUser':<?php if(isset($_SESSION["user"]["id"]))echo $_SESSION["user"]["id"];else echo 0; ?>,
                     'idThread': <?php echo $_SESSION["tempThread"]["info"]["id"]; ?>},
                     
-                })).then(function(data){alert(data)});
+                })).then(function(data){
+                    if(data.trim()=='liked') $('#like').removeClass( "like-btn" ).addClass( "liked" );
+                    if(data.trim()=='unliked') $('#like').removeClass( "liked" ).addClass( "like-btn" );
+                    getLikes();
+                });
             });
             function getLikes()
             {
@@ -481,8 +502,8 @@ forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
                     
                 })).then(function(data){$("#likes").text(data.trim())});
             }
-            setInterval(getLikes, 1000);
-
+           
+            
                 $("#submit").click(function(e){
                     if($('#comment').val()=='')
                     {
@@ -497,6 +518,54 @@ forum::view($_SESSION["tempThread"]["info"]["id"],$_SESSION["user"]["id"]);
                     }
                 })
 
+        </script>
+        <script>
+            var isPrompted=0;
+            var btnId;
+            function reportPrompt(rep){
+            
+                $('footer').css("filter","blur(20px)");
+                $('header').css("filter","blur(20px)");
+                $('main').css("filter","blur(20px)");
+                $('#report').css("display","block");
+                $('#username').val(rep.id)
+                $('#message').val(rep.parentElement.previousElementSibling.innerText)
+                $('#type').val(1);
+                $('#username').prop('disabled',true);
+                $('#message').prop('disabled',true);
+                btnId=rep.id;
+                
+               
+        }
+        function reportPromptC(rep,id){
+            
+            $('footer').css("filter","blur(20px)");
+            $('header').css("filter","blur(20px)");
+            $('main').css("filter","blur(20px)");
+            $('#report').css("display","block");
+            $('#username').val(rep.parentElement.previousElementSibling.children[2].innerText.substring(rep.parentElement.previousElementSibling.children[2].innerText.indexOf("AKA")+4))
+            $('#message').val(rep.previousElementSibling.innerText)
+            $('#type').val(0);
+            $('#id_comment').val(id);
+            $('#username').prop('disabled',true);
+            $('#message').prop('disabled',true);
+            btnId=rep.id;
+            
+           
+    }
+        $('html').click(function(e){
+            if($(e.target).closest("#report").length === 0  && e.target.id!=btnId ){
+                $('footer').css("filter","none");
+                $('header').css("filter","none");
+                $('main').css("filter","none");
+                $('#report').css("display","none");
+                  
+            }
+        });
+        $('#form_submit').click(function(){
+            $('#username').prop('disabled',false);
+            $('#message').prop('disabled',false);
+        })
         </script>
     </body>
 

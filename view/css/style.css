@@ -3588,7 +3588,18 @@ ul.minicart .cart-price .new {
 	display: block;
 	transition: .3s linear;
 }
-
+.trade
+{
+  padding-top: 10px;
+  box-shadow: 0 0 10px 4px rgba(0,0,0,0.3);
+  background-color: rgba(54, 169, 225,.3) ;
+  transition: 500ms;
+ 
+}
+.trade:hover
+{
+  background-color: rgba(54, 169, 225,.6);
+}
 .accessories-content .shop-add-action {
 	position: absolute;
 	left: 0;
@@ -3596,17 +3607,17 @@ ul.minicart .cart-price .new {
 	bottom: 0;
 	opacity: 0;
 	visibility: hidden;
-	font-size: 14px;
+	font-size: 18px;
 	font-weight: 500;
 	color: #e9a301;
 }
 
-.accessories-item:hover .accessories-content .shop-add-action {
+.trade:hover .accessories-item .accessories-content .shop-add-action {
 	opacity: 1;
 	visibility: visible;
 }
 
-.accessories-item:hover .accessories-content span {
+.trade:hover .accessories-item .accessories-content span {
 	opacity: 0;
 	visibility: hidden;
 }

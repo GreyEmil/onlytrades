@@ -1,3 +1,5 @@
+<?php include('../controller/userController.php') ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +12,8 @@
   <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css" />
   <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+  <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css" />
   <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css" />
@@ -19,15 +23,13 @@
   <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="css/util.css" />
   <link rel="stylesheet" type="text/css" href="css/login.css" />
-  <link rel="stylesheet" href="css/addauction.css">
   <!--===============================================================================================-->
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 
 <body>
-<div id="popup" class="popup">
-            <div id="info"></div>
-            <div id="link" style="margin:auto;"></div>
-        </div>
   <!-- preloader -->
   <div id="preloader">
     <div id="loading-center">
@@ -36,6 +38,22 @@
       </div>
     </div>
   </div>
+  <?php if ($_SESSION['loginAs'] == 'not_admin') { ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options.timeOut = 3000; // 1.5s
+        toastr.warning('You are not an admin. Please login from here.');
+      });
+    </script>
+  <?php } ?>
+  <?php if ($_SESSION['reset'] == 'success') { ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options.timeOut = 2500; // 1.5s
+        toastr.success('Your password is reset', 'Success!');
+      });
+    </script>
+  <?php }$_SESSION["reset"]= ''; ?>
 
   <div class="limiter">
     <div class="container-login100">
@@ -45,7 +63,7 @@
         </div>
 
 
-        <form id="form" method="POST" action="profile.php" class="login100-form validate-form">
+        <form id="form" method="POST" action="../controller//userController.php" class="login100-form validate-form">
 
 
           <span class="login100-form-title">
@@ -53,7 +71,7 @@
           </span>
 
           <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-            <input class="input100" type="text" name="email" id="email" placeholder="Email" />
+            <input class="input100" type="text" id="email" name="email" placeholder="Email" />
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -61,25 +79,32 @@
           </div>
 
           <div class="wrap-input100 validate-input" data-validate="Password is required">
-            <input class="input100" type="password" name="password" id="password" placeholder="Password" />
+            <input class="input100" type="password" id="password" name="password" placeholder="Password" />
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-lock" aria-hidden="true"></i>
             </span>
           </div>
-
+          <input class="input100" name="login_user" style="display:none" />
           <div class="container-login100-form-btn">
-            <button id="login_user" name="login_user" class="login100-form-btn" type="submit">Login</button>
+          <input type="submit"  class="login100-form-btn" id="login_user" value="login">
           </div>
           <div id="error"></div>
+
           <div class="text-center p-t-12">
             <span class="txt1"> Forgot </span>
-            <a class="txt2" href="#"> Username / Password? </a>
+            <a class="txt2" href="emailResetPassword.php"> Password? </a>
           </div>
 
-          <div class="text-center p-t-136">
+          <div class="text-center p-t-120">
             <a class="txt2" href="signup.php">
               Create your Account
+              <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="text-center p-t-10">
+            <a class="txt2" href="signinAdmin.php">
+              Are you an admin?
               <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
             </a>
           </div>
@@ -118,9 +143,7 @@
       scale: 1.1,
     });
   </script>
-  <!--===============================================================================================-->
-  <script src="js/main.js"></script>
-  <script>
+   <script>
     var email=document.getElementById("email");
     var password=document.getElementById("password");
     var xhr=new XMLHttpRequest();
@@ -146,7 +169,9 @@
     }
     
   </script>
-  <script src="js/notification.js"></script>
+  <!--===============================================================================================-->
+  <script src="js/main.js"></script>
+  <script src="js/login.js"></script>
 </body>
 
 </html>
