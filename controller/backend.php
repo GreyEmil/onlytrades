@@ -2,9 +2,24 @@
 require_once '../model/userModel.php';
 require_once '../model/auctionModel.php';
 require_once '../model/ticketModel.php';
+require_once '../model/tradeModel.php';
 
 
+if($_POST["request"]=="checkusername")
+{
+    echo userModel::checkUsername($_POST["username"]);
+}
+if($_POST["request"]=="checkemail")
+{
+    echo userModel::checkEmail($_POST["email"]);
+}
 
+if($_POST["request"]=='updateadmin')
+{
+    if(isset($_FILES))
+    $_POST["path"]=$_FILES["image"]["tmp_name"];
+    echo userModel::modifyUser($_POST);
+}
 if($_POST["request"]=="getaccounts")
 {
     $accounts=userModel::fetchAccounts();
@@ -148,4 +163,38 @@ if($_POST["request"]=="modify")
 {
     userModel::modifyUser($_POST);
 }
+
+if($_POST["request"]=="gettrades")
+{
+    echo json_encode(tradeModel::getTrades());
+}
+
+if($_POST["request"]=="updatetradestatus")
+{
+    tradeModel::updateTradeStatus($_POST);
+}
+
+if($_POST["request"]=="getmyprofile")
+{
+    echo json_encode(userModel::getAccount($_POST["id"]));
+}
+
+if($_POST["request"]=="logout")
+{
+    unset($_SESSION["user"]);
+}
+
+if($_POST["request"]=="getstatistics")
+{
+    if($_POST["of"]=="trades")
+    {
+        echo json_encode(tradeModel::getStatistics());
+    }
+
+    if($_POST["of"]=="reports")
+    {
+        echo json_encode(ticketModel::getStatistics());
+    }
+}
+
 

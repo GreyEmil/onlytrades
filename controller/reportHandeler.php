@@ -5,7 +5,7 @@ if(!isset($_SESSION)) session_start();
 
 if(isset($_POST["subject"]))
 {
-    header("location:../ticketview.php?id=".ticketModel::submitTicket($_POST));
+    header("location:../view/ticketview.php?id=".ticketModel::submitTicket($_POST));
 }else
 {
 if(isset($_POST["reply_btn"]))

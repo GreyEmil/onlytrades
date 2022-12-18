@@ -6,11 +6,21 @@ error_reporting(E_ERROR | E_PARSE);
     public static function checkUsername($userName)
     {
       $db=config::getConnexion();
-      $req=$db->prepare("SELECT * FROM user WHERE username=? and ROLE =?");
-      $req->execute(array($userName,'MEMBER'));
+      $req=$db->prepare("SELECT * FROM user WHERE username=? ");
+      $req->execute(array($userName));
       $d=$req->fetchAll();
       if(count($d)==1) return 1; else return 0;
     }
+
+    public static function checkEmail($email)
+    {
+      $db=config::getConnexion();
+      $req=$db->prepare("SELECT * FROM user WHERE email=? ");
+      $req->execute(array($email));
+      $d=$req->fetchAll();
+      if(count($d)==1) return 1; else return 0;
+    }
+
     public static function checkExistance($userName,$email)
     {
       
@@ -107,7 +117,24 @@ error_reporting(E_ERROR | E_PARSE);
         $req=$db->prepare("UPDATE user SET email =? where id=?");
         $req->execute(array($info["email"],$info["id"]));
       }
+      if(!empty($info["path"]))
+      {
+        $req=$db->prepare("UPDATE user SET photo =? where id=?");
+        $req->execute(array(base64_encode(file_get_contents($info["path"])),$info["id"]));
+      }
+
+
+
+      $req=$db->prepare("SELECT * FROM user where  id=?");
+      $req->execute(array($info["id"]));
+      $_SESSION["user"]=$req->fetchAll()[0];
     }
 
-
+    public static function getAccount($id)
+    {
+      $db=config::getConnexion();
+      $req=$db->prepare("SELECT * FROM user where id=?");
+      $req->execute(array($id));
+      return $req->fetchAll()[0];
+    }
   }

@@ -69,6 +69,23 @@ class ticketModel{
         $req=$db->prepare("UPDATE ticket SET status=? where id=?");
         $req->execute(array($info["status"],$info['id_ticket']));
     }
+
+
+    public static function getStatistics()
+    {
+        $db=config::getConnexion();
+        $req=$db->prepare("SELECT id FROM ticket WHERE status=?");
+        $req->execute(array("SOLVED"));
+        $statistics["solved"]=$req->rowCount();
+
+        $req->execute(array("AWAITING YOUR REPLY"));
+        $statistics["awaitingReply"]=$req->rowCount();
+
+        $req->execute(array("OPEN"));
+        $statistics["open"]=$req->rowCount();
+
+        return $statistics;
+    }
     
 
 

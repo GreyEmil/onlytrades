@@ -243,14 +243,13 @@ if (isset($_POST['login_admin'])) {
         $_SESSION['credentials'] = 'wrong';
     } else if ($count == 1) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $_SESSION["user"]=$user;
         $user_password_hash = $user['password'];
         $user_name = $user['username'];
         $user_role = $user['role'];
         $user_status = $user['isBanned'];
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
-        if ($user_status == 1) {
-            $error_ban = "user Banned! <br> Please contact the administration for more details. ";
-        } else if (strcmp($hash, $password)) {
+        
             $success = "Sign in successful!";
             $user_id = $user['id'];
             $user_nickname = $user['username'];
@@ -264,16 +263,14 @@ if (isset($_POST['login_admin'])) {
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['role'] = $user_role;
-                header('Location: http://localhost/foreal/view/userDashboard.php');
+                header('Location: http://localhost/foreal/view/backendfinale.php');
                 die();
             } else {
                 $_SESSION['loginAs'] = 'not_admin';
                 header('Location: http://localhost/foreal/view/signin.php');
                 die();
             }
-        } else {
-            $error_password = "Wrong password!";
-        }
+         
     }
 }
 

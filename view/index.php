@@ -77,7 +77,7 @@
     ]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
-    <?php if ((isset($_SESSION['id']))) {
+    <?php if ((isset($_SESSION['user']))) {
       $loggedIn = true;
     } else {
       $loggedIn = false;
@@ -148,10 +148,10 @@
                     <!-- <li><a href="#">Pages</a></li> -->
                     <!-- <li><a href="game-overview.html">Overview</a></li> -->
                     <!-- <li><a href="community.html">Community</a></li> -->
-                    <li ><a href="trade.php">Trade</a>
+                    <li ><a href="displaytrades.php">Trade</a>
                                             <ul class="submenu">
-                                                <li><a href="OnGoingTrades.php">My ongoing trades</a></li>
-                                                <li><a href="doneDeals.php">Done Deals</a></li>
+                                                <li><a href="myOnGoingTrades.php">My ongoing trades</a></li>
+                                                <li><a href="doneDealsf.php">Done Deals</a></li>
                                             </ul>
                                         </li>
                     <li >
@@ -211,7 +211,7 @@
                               </div>
                             <?php } elseif ($loggedIn == true && $user['role'] == 'ADMIN'  && $user['isVerified'] == true) { ?>
                               <div class="checkout-link">
-                                <a href="userDashboard.php">Admin Dashboard</a>
+                                <a href="backendfinale.php">Admin Dashboard</a>
                                 <a class="red-color" href="logout.php">Log Out</a>
                               </div>
                             <?php } elseif ($loggedIn == true &&  $user['isVerified'] == false) { ?>

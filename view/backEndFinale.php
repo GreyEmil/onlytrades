@@ -1,4 +1,6 @@
-<?php error_reporting(E_ERROR | E_WARNING | E_PARSE); session_start(); ?>
+<?php error_reporting(E_ERROR | E_WARNING | E_PARSE); session_start(); 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +11,7 @@
   <link rel="stylesheet" href="css/bestyle.css">
   <link rel="stylesheet" href="css/backend.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/9ee4261700.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -29,6 +32,7 @@
   <div class="app">
     <div class="header">
       <div class="menu-circle"></div>
+      <div class="admin-icon"><img id="adminIcon" class="img" src="data:image;base64,<?php echo $_SESSION["user"]["photo"] ;?>" alt=""></div>
 
 
 
@@ -38,7 +42,7 @@
         <div class="side-wrapper">
           <div class="side-title">Apps</div>
           <div class="side-menu">
-            <a href="#">
+            <a href="#" id="chart">
               <svg viewBox="0 0 512 512">
                 <g xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                   <path d="M0 0h128v128H0zm0 0M192 0h128v128H192zm0 0M384 0h128v128H384zm0 0M0 192h128v128H0zm0 0"
@@ -50,7 +54,7 @@
                   d="M384 192h128v128H384zm0 0M0 384h128v128H0zm0 0M192 384h128v128H192zm0 0M384 384h128v128H384zm0 0"
                   fill="currentColor" data-original="#bfc9d1" />
               </svg>
-              All Apps
+              Charts
             </a>
             <a href="#">
               <svg viewBox="0 0 488.932 488.932" fill="currentColor">
@@ -178,6 +182,7 @@
           <a class="menu-link-main" href="#">All Apps</a>
           <div class="header-menu">
             <a class="main-header-link is-active" id="account" href="#">Accounts</a>
+            <a class="main-header-link is-active" id="trade" href="#">Trades</a>
             <a class="main-header-link" id="product" href="#">Products</a>
             <a class="main-header-link" id="competition" href="#" >Competitions</a>
             <a class="main-header-link " href="#">Merch</a>
@@ -194,6 +199,7 @@
             </tbody>
           </table>
           <div id="ticket"></div>
+          <div id="statistics" style="background:none;width:100%;height:100%"></div>
         </div>
       </div>
     </div>
@@ -213,24 +219,597 @@
     <button id="submit" class="submit">Edit</button>
     <button id="close" class="submit">Close</button>
   </form>
+  <div id="ADMINID" style="display:none"><?php echo $_SESSION["user"]["id"] ;?></div>
+  <div id="adminProfile" class="admin-info">
+    <div class="admin-logout" id="logout">Log Out</div>
+    <a class="admin-website" href="index.php" >Go to Website</a>
+    <div class="admin-logout" id="closeAdmin" style="top:unset;bottom:20px">Close</div>
+    <div class="container">
+      <div class="row info-row" >
+        <img id="imageee"src="data:image;base64,<?php echo $_SESSION["user"]["photo"] ;?>" alt="" class="admin-photo">&nbsp
+        <i id="adminImage" class="fa-solid fa-thumbtack" style="cursor:pointer"></i>
+        <div style="width:100%"><form id="adminimage" action="" method="post" enctype="multipart/form-data">
+        <input  class="image-inactive" name="image" type="file" value="<?php echo $_SESSION["user"]["username"] ;?>" disabled>
+        </form></div>
+      </div>
+      
+        <div class="row info-row" style="padding:5px">
+        <div class="col-lg-6">
+          <label class="admin-label" for="username">Username</label>&nbsp<i id="adminUsername" class="fa-solid fa-thumbtack" style="cursor:pointer"></i>
+          <div style="width:100%"><input id="adminusername" class="info-inactive" type="text" value="<?php echo $_SESSION["user"]["username"] ;?>" disabled></div>
+          <p id="errorusername" class="admin-error"></p>
+          </div>
+          
+        </div>
+        
+        <div class="row info-row" style="padding:5px">
+        <div class="col">
+          <label class="admin-label" for="lastname">Last name</label>&nbsp<i id="adminLastname" class="fa-solid fa-thumbtack" style="cursor:pointer"></i>
+          <div style="width:100%"><input id="adminlastname" class="info-inactive" type="text" value="<?php echo $_SESSION["user"]["last_name"] ;?>" disabled></div>
+          <p id="errorlastname" class="admin-error"></p>
+          </div>
+          <div class="col">
+          <label class="admin-label" for="firstname">First name</label> &nbsp<i id="adminFirstname" class="fa-solid fa-thumbtack" style="cursor:pointer"></i>
+          <div style="width:100%"><input id="adminfirstname" class="info-inactive" type="text" value="<?php echo $_SESSION["user"]["first_name"] ;?>" disabled></div>
+          <p id="errorfirstname" class="admin-error"></p>
+          </div>
+        </div>
+        
+        <div class="row info-row" style="padding:5px">
+        <div class="col">
+          <label class="admin-label" for="email">Email</label>&nbsp<i id="adminEmail" class="fa-solid fa-thumbtack" style="cursor:pointer"></i>
+          <div style="width:100%"><input id="adminemail" class="info-inactive" type="text" value="<?php echo $_SESSION["user"]["email"] ;?>" disabled></div>
+          <p id="erroremail" class="admin-error"></p>
+          </div>
+          <div class="col">
+          <label class="admin-label" for="password">Password</label>&nbsp<i id="adminPassword" class="fa-solid fa-thumbtack" style="cursor:pointer"></i>
+          <div style="width:100%"><input id="adminpassword" class="info-inactive" type="password" value="<?php echo $_SESSION["user"]["password"] ;?>" disabled></div>
+          <p id="errorpassword" class="admin-error"></p>
+          </div>
+        </div>
+      
+    </div>
+  </div>
   <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
   <script src="js/bescript.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   
   <script>
-    var locationb=1;
+    var locationb="accounts";
     var thead=$('#tablehead');
     var tbody=$('#tablebody');
+    var usernameT=0,firstnameT=0,lastnameT=0,passwordT=0,emailT=0,imageT=0,profileT=0;
+    $('#adminUsername').click(toggleInput);
+    $('#adminLastname').click(toggleInput);
+    $('#adminFirstname').click(toggleInput);
+    $('#adminEmail').click(toggleInput);
+    $('#adminPassword').click(toggleInput);
+    $('#adminImage').click(toggleInput);
+    $('#adminIcon').click(toggleProfile);
+    $('#logout').click(logout);
+    $('#closeAdmin').click(function(){
+      profileT=0;
+      $('#adminProfile').css("display","none");
+    });
+
+    $('#chart').click(getStatistics);
+
+    $('#adminimage').change(updateAdmin);
+    $('#adminusername').keypress(updateAdmin);
+    $('#adminlastname').keypress(updateAdmin);
+    $('#adminfirstname').keypress(updateAdmin);
+    $('#adminemail').keypress(updateAdmin);
+    $('#adminpassword').keypress(updateAdmin);
+
+    function getStatistics(e)
+    {
+      thead.html('');
+      tbody.html('');
+      e.preventDefault();
+      if(locationb=='trades')
+      {
+          $.when($.ajax({
+            url:'../controller/backend.php',
+            type:'post',
+            data:{'request':'getstatistics',
+              'of':locationb,
+            },
+
+          })).then(function(data){
+            var stats=JSON.parse(data.trim());
+            google.charts.load("current", {packages:["corechart"]});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Task', 'Hours per Day'],
+              ['APPROVED',     stats['approved']],
+              ['REJECTED',      stats['rejected']],
+              ['AWAITING APPROVAL',  stats['awaitingApproval']],
+              ['CLOSED', stats['closed']],
+              
+            ]);
+
+            var options = {
+              title: 'Trades Statistics',
+              pieHole: 0.4,
+              backgroundColor:'transparent',
+              titleTextStyle: {
+              color: 'black'
+              },
+              hAxis: {
+                  textStyle: {
+                      color: 'black'
+                  },
+                  titleTextStyle: {
+                      color: 'black'
+                  }
+              },
+              vAxis: {
+                  textStyle: {
+                      color: 'black'
+                  },
+                  titleTextStyle: {
+                      color: 'black'
+                  }
+              },
+              legend: {
+                  textStyle: {
+                      color: 'black'
+                  }
+              },
+              is3D: false,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('statistics'));
+            chart.draw(data, options);
+          }
+          
+          })
+      }
+
+      if(locationb=='reports')
+      {
+          $.when($.ajax({
+            url:'../controller/backend.php',
+            type:'post',
+            data:{'request':'getstatistics',
+              'of':locationb,
+            },
+
+          })).then(function(data){
+            var stats=JSON.parse(data.trim());
+            google.charts.load("current", {packages:["corechart"]});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Task', 'Hours per Day'],
+              ['OPEN',     stats['open']],
+              ['AWAITING REPLY',      stats['awaitingReply']],
+              ['SOLVED',  stats['solved']],
+              
+              
+            ]);
+
+            var options = {
+              title: 'Reports Statistics',
+              pieHole: 0.4,
+              backgroundColor:'transparent',
+              titleTextStyle: {
+              color: 'black'
+              },
+              hAxis: {
+                  textStyle: {
+                      color: 'black'
+                  },
+                  titleTextStyle: {
+                      color: 'black'
+                  }
+              },
+              vAxis: {
+                  textStyle: {
+                      color: 'black'
+                  },
+                  titleTextStyle: {
+                      color: 'black'
+                  }
+              },
+              legend: {
+                  textStyle: {
+                      color: 'black'
+                  }
+              },
+              is3D: false,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('statistics'));
+            chart.draw(data, options);
+          }
+          
+          })
+      }
+
+
+
+    }
+
+    function logout()
+    {
+      $.when($.ajax({
+        url:'../controller/backend.php',
+        type:'post',
+        data:{"request":"logout",
+        },
+      })).then(function(){window.location="index.php";});
+    }
+
+    function toggleProfile()
+    {
+      if(profileT==0)
+      {
+        $('#adminProfile').css("display","block");
+        profileT=1;
+      }
+      else
+      {
+        $('#adminProfile').css("display","none");
+        profileT=0;
+      }
+    }
+
+    function getMyProfile()
+    {
+      $.when($.ajax({
+        url:'../controller/backend.php',
+        type:'post',
+        data:{"request":"getmyprofile",
+        "id":<?php echo $_SESSION["user"]["id"] ;?>},
+      })).then(function(data){displayMyProfile(data)});
+    }
+    function displayMyProfile(data)
+    {
+      var profile=JSON.parse(data.trim());
+      $('#adminusername').val(profile["username"]);
+      $('#adminfirstname').val(profile["first_name"]);
+      $('#adminlastname').val(profile["last_name"]);
+      $('#adminemail').val(profile["email"]);
+      $('#adminpassword').val(profile["password"]);
+      $('#imageee').attr('src','data:image;base64,'+profile["photo"]);
+      $('#adminIcon').attr('src','data:image;base64,'+profile["photo"]);
+    }
+
+
+    function updateAdmin(e)
+    {
+      var element=$(this);
+      id=$('#ADMINID').text();
+      if($(this).attr('id')=="adminimage")
+      {
+        let formData=new FormData($('#adminimage')[0]);
+        formData.append("request","updateadmin")
+        formData.append("id",id);
+        $.when($.ajax({
+        url:'../controller/backend.php',
+        type:'post',
+        data:formData,
+        contentType:false,
+        processData:false,
+      })).then(getMyProfile);
+
+      }
+      if(e.keyCode==13)
+      {
+        
+        if($(this).attr('id')=="adminusername")
+        {
+          
+          if($(this).val().length<3)
+          {
+            $('#errorusername').text('Username is invalid!');
+          }
+          else
+          {
+            $.when($.ajax({
+              url:'../controller/backend.php',
+              type:'post',
+              data:{'username':$(this).val(),
+                'request':'checkusername',
+              }
+            })).then(function(data){
+              if(data.trim()==0)
+              {
+                $.ajax({
+                url:'../controller/backend.php',
+                type:'post',
+                data:{'username':element.val(),
+                  'request':'updateadmin',
+                  'id':id,
+                }
+                })
+
+                $('#errorusername').text('');
+                usernameT=0;
+                element.attr("class","info-inactive");
+                element.attr("disabled",true);
+              }
+              else
+              {
+                $('#errorusername').text('Username already exists!');
+              }
+            });
+            
+          }
+        }
+
+        if($(this).attr('id')=="adminlastname")
+        {
+          if($(this).val().length<2)
+          {
+            $('#errorlastname').text('Lastname is invalid!');
+          }
+          else
+          {
+            $.ajax({
+                url:'../controller/backend.php',
+                type:'post',
+                data:{'lastname':element.val(),
+                  'request':'updateadmin',
+                  'id':id,
+                }
+                })
+            $('#errorlastname').text('');
+            lastnameT=0;
+            $(this).attr("class","info-inactive");
+            $(this).attr("disabled",true);
+          }
+  
+        }
+
+        if($(this).attr('id')=="adminfirstname")
+        {
+          if($(this).val().length<3)
+          {
+            $('#errorfirstname').text('Firstname is invalid!');
+          }
+          else
+          {
+            $.ajax({
+                url:'../controller/backend.php',
+                type:'post',
+                data:{'firstname':element.val(),
+                  'request':'updateadmin',
+                  'id':id,
+                }
+                })
+            $('#errorfirstname').text('');
+            firstnameT=0;
+            $(this).attr("class","info-inactive");
+            $(this).attr("disabled",true);
+          }
+          
+        }
+
+        if($(this).attr('id')=="adminemail")
+        {
+          if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(element.val()))
+          {
+            $('#erroremail').text('Email is invalid');
+          }
+          else
+          {
+            $.when($.ajax({
+              url:'../controller/backend.php',
+              type:'post',
+              data:{'email':$(this).val(),
+                'request':'checkemail',
+              }
+            })).then(function(data){
+              if(data.trim()==0)
+              {
+                $.ajax({
+                url:'../controller/backend.php',
+                type:'post',
+                data:{'email':element.val(),
+                  'request':'updateadmin',
+                  'id':id,
+                }
+                })
+
+                $('#erroremail').text('');
+                emailT=0;
+                element.attr("class","info-inactive");
+                element.attr("disabled",true);
+              }
+              else{
+                $('#erroremail').text('Email already exists!');
+              }
+            });
+            
+          }
+        }
+
+        if($(this).attr('id')=="adminpassword")
+        {
+          if($(this).val().length<8)
+          {
+            $('#errorpassword').text('Password is invalid!');
+          }
+          else
+          {
+            $.ajax({
+                url:'../controller/backend.php',
+                type:'post',
+                data:{'password':element.val(),
+                  'request':'updateadmin',
+                  'id':id,
+                }
+                })
+            $('#errorpassword').text('');
+            passwordT=0;
+            $(this).attr("class","info-inactive");
+            $(this).attr("disabled",true);
+          }
+          
+        }
+      }
+    }
+
+
+    function toggleInput()
+    {
+
+      if($(this).attr('id')=="adminImage")
+      {
+        if(imageT==0)
+        {
+          $(this).next().children().children().first().attr("class","image-active");
+          $(this).next().children().children().first().attr("disabled",false);
+          $(this).css("color","#3a6df0");
+          imageT=1;
+        }
+        else
+        {
+          $(this).next().children().children().first().attr("class","image-inactive");
+          $(this).next().children().children().first().attr("disabled",true);
+          $(this).css("color","white");
+          imageT=0;
+        }
+        
+      }
+
+
+
+      if($(this).attr('id')=="adminUsername")
+      {
+        if(usernameT==0)
+        {
+          $(this).css("color","#3a6df0");
+          $(this).next().children().first().attr("class","info-active");
+          $(this).next().children().first().attr("disabled",false);
+          
+          usernameT=1;
+        }
+        else
+        {
+          $(this).css("color","white");
+          $(this).next().children().first().attr("class","info-inactive");
+          $(this).next().children().first().attr("disabled",true);
+          usernameT=0;
+        }
+        
+      }
+
+      if($(this).attr('id')=="adminLastname")
+      {
+        if(lastnameT==0)
+        {
+          $(this).css("color","#3a6df0");
+          $(this).next().children().first().attr("class","info-active");
+          $(this).next().children().first().attr("disabled",false);
+          lastnameT=1;
+        }
+        else
+        {
+          $(this).css("color","white");
+          $(this).next().children().first().attr("class","info-inactive");
+          $(this).next().children().first().attr("disabled",true);
+          lastnameT=0;
+        }
+        
+      }
+
+      if($(this).attr('id')=="adminFirstname")
+      {
+        if(firstnameT==0)
+        {
+          $(this).css("color","#3a6df0");
+          $(this).next().children().first().attr("class","info-active");
+          $(this).next().children().first().attr("disabled",false);
+          firstnameT=1;
+        }
+        else
+        {
+          $(this).css("color","white");
+          $(this).next().children().first().attr("class","info-inactive");
+          $(this).next().children().first().attr("disabled",true);
+          firstnameT=0;
+        }
+        
+      }
+
+      if($(this).attr('id')=="adminEmail")
+      {
+        if(emailT==0)
+        {
+          $(this).css("color","#3a6df0");
+          $(this).next().children().first().attr("class","info-active");
+          $(this).next().children().first().attr("disabled",false);
+          emailT=1;
+        }
+        else
+        {
+          $(this).css("color","white");
+          $(this).next().children().first().attr("class","info-inactive");
+          $(this).next().children().first().attr("disabled",true);
+          emailT=0;
+        }
+        
+      }
+
+      if($(this).attr('id')=="adminPassword")
+      {
+        if(passwordT==0)
+        {
+          $(this).css("color","#3a6df0");
+          $(this).next().children().first().attr("class","info-active");
+          $(this).next().children().first().attr("disabled",false);
+          passwordT=1;
+        }
+        else
+        {
+          $(this).css("color","white");
+          $(this).next().children().first().attr("class","info-inactive");
+          $(this).next().children().first().attr("disabled",true);
+          passwordT=0;
+        }
+        
+      }
+
+      
+    }
+
+    
+
+
+
+
+
+
+    
+    
     loadAccounts();
     
     $('#account').click(loadAccounts);
     $('#report').click(loadReports);
+    $('#trade').click(loadTrades);
     $('#submit').click(modifyInfo);
     $('#close').click(function(e){ e.preventDefault();$('#fform').css("display","none"); });
     
 
+    function loadTrades()
+    {
+      $('#statistics').html('');
+      locationb="trades";
+      $.when($.ajax({
+        url:'../controller/backend.php',
+        type:'post',
+        data:{'request':'gettrades'},
+      })).then(function(data){displayTrades(data)});
+    }
     function loadAccounts()
     {
+      $('#statistics').html('');
+      locationb="accounts";
       $.when($.ajax({
         url:'../controller/backend.php',
         type:'post',
@@ -240,13 +819,58 @@
 
     function loadReports()
     {
-
+      $('#statistics').html('');
+      locationb="reports";
       $.when($.ajax({
         url:'../controller/backend.php',
         type:'post',
         data:{'request':'gettickets'},
       })).then(function(data){displayReports(data)});
       
+    }
+
+    function displayTrades(data)
+    {
+      var trades=JSON.parse(data);
+      $('#ticket').html('');
+      tbody.html('');
+      thead.html('');
+      var sel;
+      thead.html('<tr > <th scope="col">ID</th> <th scope="col">NAME</th> <th scope="col">OWNER</th> <th scope="col">STATUS</th> <th scope="col">IMAGE</th></tr>');
+      for(var trade of trades){
+        if(trade["status"]!="DONE" && trade["status"]!="ACCEPTED")
+        {
+        if(trade["status"]=="AWAITING APPROVAL")
+        sel='<select id="trade'+trade["id"]+'"><option value="APPROVED">APPROVED</option><option selected="selected" value="AWAITING APPROVAL">AWAITING APPROVAL</option><option value="REJECTED">REJECTED</option></select>';
+        if(trade["status"]=="REJECTED")
+        sel='<select id="trade'+trade["id"]+'"><option value="APPROVED">APPROVED</option><option value="AWAITING APPROVAL">AWAITING APPROVAL</option><option slected="selected" value="REJECTED">REJECTED</option></select>';
+        if(trade["status"]=="APPROVED")
+        sel='<select id="trade'+trade["id"]+'"><option selected="selected" value="APPROVED">APPROVED</option><option value="AWAITING APPROVAL">AWAITING APPROVAL</option><option value="REJECTED">REJECTED</option></select>';
+        }
+        else
+        {
+          sel='CLOSED';
+        }
+        tbody.append("<tr></tr>");
+        tbody.children().last().append('<th scope="row">'+trade["id"]+'</th> <th scope="row" >'+trade["name"]+'</th> <th>'+trade["user"]["username"]+'</th>  <th>'+sel+'</th> <th><img class="user-image" src="data:image/jpeg;base64,'+trade["image"]+'" alt=""></th>');
+        $('#trade'+trade["id"]).unbind();
+        $('#trade'+trade["id"]).change(changeTradeStatus);
+
+      }
+    }
+    function changeTradeStatus()
+    {
+      $.when($.ajax({
+        url:'../controller/backend.php',
+        type:'post',
+        data:{
+          'request':"updatetradestatus",
+          'status':$(this).val(),
+          'id':$(this).attr('id').substring(5),
+
+        },
+        
+      })).then(); 
     }
 
     function displayReports(data)

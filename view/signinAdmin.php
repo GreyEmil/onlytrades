@@ -54,7 +54,7 @@
         </div>
 
 
-        <form method="POST" action="../controller//userController.php" class="login100-form validate-form">
+        <form id="form" method="POST" action="../controller//userController.php" class="login100-form validate-form">
 
 
           <span class="login100-form-title">
@@ -62,7 +62,7 @@
           </span>
 
           <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-            <input class="input100" type="text" name="email" placeholder="Email" />
+            <input class="input100" type="text" id="email" name="email" placeholder="Email" />
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -70,16 +70,17 @@
           </div>
 
           <div class="wrap-input100 validate-input" data-validate="Password is required">
-            <input class="input100" type="password" name="password" placeholder="Password" />
+            <input class="input100" type="password" id="password" name="password" placeholder="Password" />
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-lock" aria-hidden="true"></i>
             </span>
           </div>
-
+          <input type="text" name="login_admin" style="display:none">
           <div class="container-login100-form-btn">
-            <button name="login_admin" class="login100-form-btn">Login</button>
+            <button  id="login_user" class="login100-form-btn">Login</button>
           </div>
+          <div id="error"></div>
 
           <div class="text-center p-t-12">
             <span class="txt1"> Forgot </span>
@@ -132,6 +133,31 @@
     $(".js-tilt").tilt({
       scale: 1.1,
     });
+  </script>
+  <script>
+    var email=document.getElementById("email");
+    var password=document.getElementById("password");
+    var xhr=new XMLHttpRequest();
+    var submitB=document.getElementById('login_user');
+    var form=document.getElementById('form');
+    var error=document.getElementById('error');
+    submitB.addEventListener('click',checkInfo)
+    var response;
+    function checkInfo(e)
+    {
+      e.preventDefault();
+      xhr.open('POST',"../controller/checkSignIn.php");
+      xhr.setRequestHeader("Content-Type","application/json");
+      var infoJson='{"email":"'+email.value+'","password":"'+password.value+'"}';
+      xhr.onload=function()
+      {
+        response=this.responseText.trim()
+        if(response=='') form.submit() ;
+        else error.innerHTML=response;
+        
+      }
+      xhr.send(infoJson);
+    }
   </script>
   <!--===============================================================================================-->
   <script src="js/main.js"></script>
