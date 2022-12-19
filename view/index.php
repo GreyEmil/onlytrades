@@ -40,6 +40,7 @@
       </div>
     </div>
   </div>
+  <!-- header-area -->
   <?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
     <script type="text/javascript">
       $(document).ready(function() {
@@ -58,7 +59,7 @@
     </script>
   <?php } $_SESSION['edit']="";?>
 
-  <!-- preloader-end -->
+ 
 
   <!-- header-area -->
   <header>
@@ -144,24 +145,34 @@
                 </div>
                 <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
                   <ul>
-                    <li class="show"><a href="#">Home</a></li>
+                    <li class="show"><a href="index.php">Home</a></li>
                     <!-- <li><a href="#">Pages</a></li> -->
                     <!-- <li><a href="game-overview.html">Overview</a></li> -->
                     <!-- <li><a href="community.html">Community</a></li> -->
-                    <li ><a href="displaytrades.php">Trade</a>
+                    <li ><a href="displaytrades.php" id="trade" >Trade</a>
+                                        <?php if(isset($_SESSION["user"])){?>
                                             <ul class="submenu">
                                                 <li><a href="myOnGoingTrades.php">My ongoing trades</a></li>
                                                 <li><a href="doneDealsf.php">Done Deals</a></li>
                                             </ul>
+                                            <?php }?>
                                         </li>
                     <li >
                                     <a href="../controller/displayAllAuctions.php">Auctions</a>
+                                    <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
                                         <li><a href="displayownedauctionsview.php">my auctions</a></li>
                                     </ul>
+                                    <?php }?>
                                 </li>
-                    <li><a href="../controller/displayAllCompetitions.php">Competitions</a>
-                    <li><a href="POINTSSHOP.php">POINTS SHOP</a></li>
+                    
+                    <li><a href="POINTSSHOP.php">POINTS SHOP</a>
+                    <?php if(isset($_SESSION["user"])){?>
+                    <ul class="submenu">
+                                                <li><a href="orders.php">My orders</a></li>
+                                            </ul>
+                                            <?php }?>
+                                        </li>
                     <!-- <ul class="submenu">
                                                 <li><a href="blog.html">News Page</a></li>
                                                 <li><a href="blog-details.html">News Details</a></li>
@@ -169,11 +180,15 @@
                                         </li> -->
                     <li><a href="categories.php">FORUM</a></li>
                     <li >
-                                    <a href="javascript:;">Report</a>
+                                    <a  href="ajouterreclamation.php" id="report">Report</a>
+                                    <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
-                                        <li><a href="ajouterreclamation.php">Send Report</a></li>
+                                    
+                                      
                                         <li><a href="consulterreclamation.php">Report History</a></li> 
+                                        
                                     </ul>
+                                    <?php }?>
                                 </li>
                   </ul>
                 </div>
@@ -258,7 +273,7 @@
       </div>
     </div>
   </header>
-  <!-- header-area-end -->
+    <!-- header-area-end -->
   <!-- main-area -->
   <main>
     <!-- slider-area -->
@@ -1132,6 +1147,21 @@
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+  <script>
+  function checkIfLoggedIn(e)
+{
+    var si= <?php if(isset($_SESSION["user"])) echo 1; else echo 0;?>;
+    e.preventDefault();
+    
+    if(si==0)
+    window.location.href="../view/signin.php";
+    else
+    window.location=$(this).attr("href");
+   
+}
+$('#report').click(checkIfLoggedIn);
+
+  </script>
 </body>
 
 <!-- Mirrored from themebeyond.com/html/geco/Geco/index.php by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 31 Oct 2022 13:00:20 GMT -->

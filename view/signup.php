@@ -34,21 +34,7 @@
       </div>
     </div>
   </div>
-  <?php if (($_SESSION['email'] == 'success') && ($_SESSION['register'] == 'success')) { ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        toastr.options.timeOut = 2500; // 1.5s
-        toastr.success('Check your email for verification!', 'Successfully registered');
-      });
-    </script>
-  <?php } elseif (($_SESSION['email'] != 'success') || ($_SESSION['register'] != 'success')) { ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        toastr.options.timeOut = 2500; // 1.5s
-        toastr.error('Check your information!', 'Error');
-      });
-    </script>
-  <?php } ?>
+  
   <!-- preloader-end -->
   <!-- <header>
       <div id="sticky-header" class="transparent-header-login">

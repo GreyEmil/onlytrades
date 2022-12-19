@@ -40,6 +40,7 @@ session_start();
 <div class="app">
  <div class="header">
   <div class="menu-circle"></div>
+  <div class="admin-icon"><img id="adminIcon" class="img" src="data:image;base64,<?php echo $_SESSION["user"]["photo"] ;?>" alt=""></div>
 
 
   
@@ -70,15 +71,16 @@ session_start();
    </div>
   </div>
   <div class="main-container">
-   <div class="main-header1">
-    <a class="menu-link-main" href="#">All MODULES</a>
+    
+   <div class="main-header" style="background:none">
+   <a class="menu-link-main" href="#" >All Apps</a>
     <div class="header-menu">
-     <a class="main-header1-link" href="#">Accounts</a>
-     <a class="main-header1-link" href="#">Products</a>
-     <a class="main-header1-link" href="#">Events</a>
-     <a class="main-header1-link is-active" href="backendmerch.php">Merch</a>
-     <a class="main-header1-link" href="#">Forums</a>
-     <a class="main-header1-link" href="#">Reports</a>
+     <a class="main-header-link" href="#">Accounts</a>
+     <a class="main-header-link" href="#">Products</a>
+     <a class="main-header-link" href="#">Events</a>
+     <a class="main-header-link is-active" href="backendmerch.php">Merch</a>
+     <a class="main-header-link" href="#">Forums</a>
+     <a class="main-header-link" href="#">Reports</a>
 
     </div>
    </div>

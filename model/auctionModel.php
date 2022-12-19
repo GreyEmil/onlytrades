@@ -87,13 +87,16 @@ class auctionModel
       $data[$i]["id"]=$ownedAuctions[$i]["id"];
       $data[$i]["startDate"]=$ownedAuctions[$i]["start_date"];
       $data[$i]["duration"]=$ownedAuctions[$i]["duration"];
+      $data[$i]["status"]=$ownedAuctions[$i]["status"];
       $data[$i]["name"]=$product["name"];
       $data[$i]["description"]=$product["description"];
       $data[$i]["approved"]=$product["approved"];
       $data[$i]["addDate"]=$product["add_date"];
       $data[$i]["images"]=$images;
-      
-    
+      $req=$db->prepare("SELECT username,id FROM user WHERE id=? ");
+      $req->execute(array($ownedAuctions[$i]["id_owner"]));
+      $data[$i]["user"]=$req->fetchAll()[0];
+
     }
     return $data;
 
@@ -242,11 +245,11 @@ class auctionModel
     $req=$db->prepare("DELETE FROM participate where id=?");
     $req->execute(array($idOffer));
   }
-  public static function checkOfferExistance($idUser)
+  public static function checkOfferExistance($idUser,$idAuction)
   {
     $db=config::getConnexion();
-    $req=$db->prepare("SELECT id from participate where id_participent=?");
-    $req->execute(array($idUser));
+    $req=$db->prepare("SELECT id from participate where id_participent=? AND id_auction=?");
+    $req->execute(array($idUser,$idAuction));
     $offer=$req->fetchAll();
     if(count($offer)!=0)
     return "exist"; else return 'none';
@@ -276,8 +279,60 @@ class auctionModel
     $id=$req->fetchAll()[0]['id'];
 
     $req=$db->prepare("UPDATE  image SET bin=? where id_product=? ");
-    $req->execute(array($image,$id));
+    $req->execute(array(file_get_contents($image["tmp_name"]),$id));
     
+  }
+
+
+  public static function closeAuction($id,$duration)
+  {
+    $db=config::getConnexion();
+    $req=$db->prepare("SELECT id FROM participate where id_auction=? AND best=?");
+    $req->execute(array($id,1));
+    $best=$req->fetchAll()[0];
+
+    $req=$db->prepare("UPDATE auction SET status=? , id_winner=?, duration=? where id=? ");
+    $req->execute(array("CLOSED",$best["id"],$duration,$id));
+    
+  }
+
+  public static function checkIfClosed($id)
+  {
+    $db=config::getConnexion();
+    $req=$db->prepare("SELECT status FROM auction where id=?");
+    $req->execute(array($id));
+    $status=$req->fetchAll()[0];
+    if($status["status"]=="CLOSED")
+    {
+      return 1;
+    }
+    else return 0;
+
+
+  }
+
+
+  public static function getStatistics()
+  {
+    $db=config::getConnexion();
+    $req=$db->prepare("SELECT duration FROM auction where duration<?");
+    $req->execute(array(15));
+    $statistics["<15"]=$req->rowCount();
+
+    $req=$db->prepare("SELECT duration FROM auction where duration>? AND duration<?");
+    $req->execute(array(15,30));
+    $statistics[">15<30"]=$req->rowCount();
+
+    $req=$db->prepare("SELECT duration FROM auction where duration>? AND duration<?");
+    $req->execute(array(30,45));
+    $statistics[">30<45"]=$req->rowCount();
+
+
+    $req=$db->prepare("SELECT duration FROM auction where duration>?");
+    $req->execute(array(45));
+    $statistics[">45"]=$req->rowCount();
+
+    return $statistics;
   }
   // public static function  modifyAuction($id_owner,$auction,$images)
   // {

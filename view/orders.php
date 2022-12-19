@@ -1,6 +1,9 @@
 <?php
 session_start();
+require '../controller/merch.php';
 ?>
+
+<?php include('../controller/userController.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,83 +30,156 @@ session_start();
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/stylee.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
+
+
       
     <title>orders</title>
 </head>
 <body>
-<header>
-        <div class="header-top-area s-header-top-area d-none d-lg-block">
-            <div class="container-fluid s-container-full-padding">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 d-none d-lg-block">
-                        <div class="header-top-offer">
-                            <p style="color: rgb(54, 169, 225);">Premium Offer</p>
-                            <span class="coming-time" data-countdown="2022/11/15"></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="header-top-right">
-                            <!-- <div class="header-social">
-                                        <ul>
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </div> -->
-                            <div class="header-top-action">
-                                <ul>
-                                    <li>
-                                        <div class="header-top-mail">
-                                            <p><span></span>
-                                                <!-- <i class="far fa-envelope"></i><a
-                                                            href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
-                                                                class="__cf_email__"
-                                                                data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
-                                                            </a> -->
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div id="preloader">
+    <div id="loading-center">
+      <div id="loading-center-absolute">
+        <img src="img/icon/o.gif" alt="" />
+      </div>
+    </div>
+  </div>
+<!-- header-area -->
+<?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options.timeOut = 2500; // 1.5s
+        toastr.success('Welcome to our homepage', 'Login Successful!');
+        
+      });
+    </script>
+  <?php } $_SESSION['login']=""; ?>
+  <?php if (isset($_SESSION['edit']) && ($_SESSION['edit'] == 'success')) { ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options.timeOut = 2000; // 1.5s
+        toastr.success('Information were edited', 'Edit Successful!');
+      });
+    </script>
+  <?php } $_SESSION['edit']="";?>
+
+ 
+
+  <!-- header-area -->
+  <header>
+    <?php
+    if (isset($_COOKIE['_uid_'])) {
+      $u_id = base64_decode($_COOKIE['_uid_']);
+    } else if (isset($_SESSION['id'])) {
+      $u_id = $_SESSION['id'];
+    } else {
+      $u_id = -1;
+    }
+    $sql = "SELECT * FROM user WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+      ':id' => $u_id
+    ]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    ?>
+    <?php if ((isset($_SESSION['user']))) {
+      $loggedIn = true;
+    } else {
+      $loggedIn = false;
+    }
+    ?>
+    <?php
+    function logout()
+    {
+      if (isset($_GET['logout'])) {
+        session_start();
+        unset($_SESSION["id"]);
+        header("Location:signin.php");
+      }
+    }
+    ?>
+    <div class="header-top-area s-header-top-area d-none d-lg-block">
+      <div class="container-fluid s-container-full-padding">
+        <div class="row align-items-center">
+          <div class="col-lg-6 d-none d-lg-block">
+            <div class="header-top-offer">
+              <p style="color: rgb(54, 169, 225)">Premium Offer</p>
+              <span class="coming-time" data-countdown="2022/11/15"></span>
             </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="header-top-right">
+              <!-- <div class="header-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div> -->
+              <div class="header-top-action">
+                <ul>
+                  <li>
+                    <div class="header-top-mail">
+                      <p>
+                        <span></span>
+                        <!-- <i class="far fa-envelope"></i><a
+                                                    href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
+                                                        class="__cf_email__"
+                                                        data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
+                                                    </a> -->
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="sticky-header" class="transparent-header">
-            <div class="container-fluid s-container-full-padding">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="main-menu menu-style-two">
-                            <nav>
-                            <div class="logo">
+      </div>
+    </div>
+    <div id="sticky-header" class="transparent-header">
+      <div class="container-fluid s-container-full-padding">
+        <div class="row">
+          <div class="col-12">
+            <div class="main-menu menu-style-two">
+              <nav>
+                <div class="logo">
                   <a href="index.php"><img src="img/logo/logo.png" class="logoh" alt="logo" /></a>
                 </div>
                 <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
                   <ul>
-                    <li><a href="index.php">Home</a></li>
+                    <li ><a href="index.php">Home</a></li>
                     <!-- <li><a href="#">Pages</a></li> -->
                     <!-- <li><a href="game-overview.html">Overview</a></li> -->
                     <!-- <li><a href="community.html">Community</a></li> -->
-                    <li ><a href="trade.php">Trade</a>
+                    <li ><a href="displaytrades.php">Trade</a>
+                                        <?php if(isset($_SESSION["user"])){?>
                                             <ul class="submenu">
-                                                <li><a href="OnGoingTrades.php">My ongoing trades</a></li>
+                                                <li><a href="myOnGoingTrades.php">My ongoing trades</a></li>
+                                                <li><a href="doneDealsf.php">Done Deals</a></li>
                                             </ul>
+                                            <?php }?>
                                         </li>
                     <li >
                                     <a href="../controller/displayAllAuctions.php">Auctions</a>
+                                    <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
                                         <li><a href="displayownedauctionsview.php">my auctions</a></li>
                                     </ul>
+                                    <?php }?>
                                 </li>
-                    <li><a href="../controller/displayAllCompetitions.php">Competitions</a>
+                    
                     <li class="show"><a href="POINTSSHOP.php">POINTS SHOP</a>
-                                            <ul class="submenu">
+                    <?php if(isset($_SESSION["user"])){?>
+                    <ul class="submenu">
                                                 <li><a href="orders.php">My orders</a></li>
                                             </ul>
+                                            <?php }?>
                                         </li>
-                    <li >
                     <!-- <ul class="submenu">
                                                 <li><a href="blog.html">News Page</a></li>
                                                 <li><a href="blog-details.html">News Details</a></li>
@@ -111,15 +187,66 @@ session_start();
                                         </li> -->
                     <li><a href="categories.php">FORUM</a></li>
                     <li >
-                                    <a href="javascript:;">Report</a>
+                                    <a id="repnav" href="ajouterreclamation.php">Report</a>
+                                    <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
-                                        <li><a href="ajouterreclamation.php">Send Report</a></li>
+                                    
+                                      
                                         <li><a href="consulterreclamation.php">Report History</a></li> 
+                                        
                                     </ul>
+                                    <?php }?>
                                 </li>
                   </ul>
                 </div>
-                                <div class="header-action">
+
+                <div class="header-action">
+                  <ul>
+                    <li class="header-shop-cart">
+                      <a href="#">
+                        <i class="fi fi-sr-user"></i>
+                        <ul class="minicart">
+                          <li class="d-flex align-items-start">
+
+                            <div class="cart-content">
+                              <h4>
+                                <?php if ($loggedIn == false) { ?>
+                                  <a href="#">Join the community now!</a>
+                                <?php } elseif ($loggedIn == true && $user['isVerified'] == true) { ?>
+                                  <a href="profile.php"><?php echo "Hello  &nbsp;" . $user['username'] ?></a>
+                                <?php } elseif ($loggedIn == true && $user['isVerified'] == false) { ?>
+                                  <a href="#"><?php echo "Hello  &nbsp;" . $user['username'] . "<br> Your account is not verified! Please check your email!" ?></a>
+                                <?php }  ?>
+                              </h4>
+                          </li>
+                          <li>
+                            <?php if ($loggedIn == false) { ?>
+                              <div class="checkout-link">
+                                <a href="signin.php">Login As Member </a>
+                                <a href="signinAdmin.php">Login As Admin </a>
+                                <a class="red-color" href="signup.php">Sign up</a>
+                              </div>
+                            <?php } elseif ($loggedIn == true && $user['role'] == 'MEMBER' && $user['isVerified'] == true) { ?>
+                              <div class="checkout-link">
+                                <a href="profile.php">Member Profile </a>
+                                <a class="red-color" href="logout.php">Log Out</a>
+                              </div>
+                            <?php } elseif ($loggedIn == true && $user['role'] == 'ADMIN'  && $user['isVerified'] == true) { ?>
+                              <div class="checkout-link">
+                                <a href="backendfinale.php">Admin Dashboard</a>
+                                <a class="red-color" href="logout.php">Log Out</a>
+                              </div>
+                            <?php } elseif ($loggedIn == true &&  $user['isVerified'] == false) { ?>
+                              <div class="checkout-link">
+                                <a class="red-color" href="logout.php">Log Out</a>
+                              </div>
+                            <?php }  ?>
+                          </li>
+                        </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="header-action">
                                     <ul>
                                         <li class="header-shop-cart"><a href="#"><i class="fas fa-shopping-basket"
                                                     style="color:rgb(54, 169, 225);"></i><span id='qofbasket'>0</span></a>
@@ -132,25 +259,28 @@ session_start();
                                                 data-target="#search-modal"><i class="fas fa-search"></i></a></li>
                                     </ul>
                                 </div>
-                            </nav>
-                        </div>
-                        <div class="mobile-menu"></div>
-                    </div>
-                    <!-- Modal Search -->
-                    <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <form>
-                                    <input type="text" placeholder="Search here...">
-                                    <button><i class="fa fa-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
+              </nav>
             </div>
+            <div class="mobile-menu"></div>
+          </div>
+          <!-- Modal Search -->
+          <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <form>
+                  <input type="text" placeholder="Search here..." />
+                  <button><i class="fa fa-search"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
+    <!-- header-area-end -->
 <main>
 
 <!-- slider-area -->
@@ -188,11 +318,11 @@ session_start();
             
         
           <?php
-          require '../controller/merch.php';
-          $id=$_SESSION["user"]["id"];
+         
+          $idd=$_SESSION["user"]["id"];
           $checkout=new commande;
-          $checkout1=$checkout->showcheckout_only_user_1($id);
-          $checkout2=$checkout->showcheckout_only_user_2($id);
+          $checkout1=$checkout->showcheckout_only_user_1($idd);
+          $checkout2=$checkout->showcheckout_only_user_2($idd);
           $length=count($checkout1);
           if($length>0)
           {
@@ -346,5 +476,25 @@ session_start();
 <!-- game-manage-area-end -->
 </main>
           <script src="js/scripts.js"></script>
+          <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script src="js/vendor/jquery-3.4.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/isotope.pkgd.min.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/jquery.meanmenu.min.js"></script>
+  <script src="js/wow.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.lettering.js"></script>
+  <script src="js/jquery.textillate.js"></script>
+  <script src="js/jquery.odometer.min.js"></script>
+  <script src="js/jquery.appear.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/jquery.scrollUp.min.js"></script>
+  <script src="js/imagesloaded.pkgd.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
         </body>
 </html>

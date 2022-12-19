@@ -29,6 +29,10 @@
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+
 </head>
 
 <body>
@@ -44,195 +48,238 @@
     <!-- preloader-end -->
 
     <!-- header-area -->
-    <header>
-        <?php
-        if (isset($_COOKIE['_uid_'])) {
-            $u_id = base64_decode($_COOKIE['_uid_']);
-        } else if (isset($_SESSION['id'])) {
-            $u_id = $_SESSION['id'];
-        } else {
-            $u_id = -1;
-        }
-        $sql = "SELECT * FROM user WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':id' => $u_id
-        ]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        ?>
-        <?php if ((isset($_SESSION['id']))) {
-            $loggedIn = true;
-        } else {
-            $loggedIn = false;
-        }
-        ?>
-        <?php
-        function logout()
-        {
-            if (isset($_GET['logout'])) {
-                session_start();
-                unset($_SESSION["id"]);
-                header("Location:signin.php");
-            }
-        }
-        ?>
-        <div class="header-top-area s-header-top-area d-none d-lg-block">
-            <div class="container-fluid s-container-full-padding">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 d-none d-lg-block">
-                        <div class="header-top-offer">
-                            <p style="color: rgb(54, 169, 225);">Premium Offer</p>
-                            <span class="coming-time" data-countdown="2022/11/15"></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="header-top-right">
-                            <!-- <div class="header-social">
-                                        <ul>
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </div> -->
-                            <div class="header-top-action">
-                                <ul>
-                                    <li>
-                                        <div class="header-top-mail">
-                                            <p><span></span>
-                                                <!-- <i class="far fa-envelope"></i><a
-                                                            href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
-                                                                class="__cf_email__"
-                                                                data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
-                                                            </a> -->
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options.timeOut = 2500; // 1.5s
+        toastr.success('Welcome to our homepage', 'Login Successful!');
+        
+      });
+    </script>
+  <?php } $_SESSION['login']=""; ?>
+  <?php if (isset($_SESSION['edit']) && ($_SESSION['edit'] == 'success')) { ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options.timeOut = 2000; // 1.5s
+        toastr.success('Information were edited', 'Edit Successful!');
+      });
+    </script>
+  <?php } $_SESSION['edit']="";?>
+
+ 
+
+  <!-- header-area -->
+  <header>
+    <?php
+    if (isset($_COOKIE['_uid_'])) {
+      $u_id = base64_decode($_COOKIE['_uid_']);
+    } else if (isset($_SESSION['id'])) {
+      $u_id = $_SESSION['id'];
+    } else {
+      $u_id = -1;
+    }
+    $sql = "SELECT * FROM user WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+      ':id' => $u_id
+    ]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    ?>
+    <?php if ((isset($_SESSION['user']))) {
+      $loggedIn = true;
+    } else {
+      $loggedIn = false;
+    }
+    ?>
+    <?php
+    function logout()
+    {
+      if (isset($_GET['logout'])) {
+        session_start();
+        unset($_SESSION["id"]);
+        header("Location:signin.php");
+      }
+    }
+    ?>
+    <div class="header-top-area s-header-top-area d-none d-lg-block">
+      <div class="container-fluid s-container-full-padding">
+        <div class="row align-items-center">
+          <div class="col-lg-6 d-none d-lg-block">
+            <div class="header-top-offer">
+              <p style="color: rgb(54, 169, 225)">Premium Offer</p>
+              <span class="coming-time" data-countdown="2022/11/15"></span>
             </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="header-top-right">
+              <!-- <div class="header-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div> -->
+              <div class="header-top-action">
+                <ul>
+                  <li>
+                    <div class="header-top-mail">
+                      <p>
+                        <span></span>
+                        <!-- <i class="far fa-envelope"></i><a
+                                                    href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
+                                                        class="__cf_email__"
+                                                        data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
+                                                    </a> -->
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="sticky-header" class="transparent-header">
-            <div class="container-fluid s-container-full-padding">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="main-menu menu-style-two">
-                            <nav>
-                                <div class="logo">
-                                    <a href="index.php"><img src="img/logo/logo.png" class="logoh" alt="logo"></a>
-                                </div>
-                                <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
-                                    <ul>
-                                        <li><a href="index.php">Home</a></li>
-                                        <!-- <li><a href="#">Pages</a></li> -->
-                                        <!-- <li><a href="game-overview.html">Overview</a></li> -->
-                                        <!-- <li><a href="community.html">Community</a></li> -->
-                                        <li><a href="trade.html">Trade</a></li>
-                                        <li><a href="Auction.html">Auction</a>
-                                        <li><a href="POINTSSHOP.html">POINTS SHOP</a></li>
-                                        <li><a href="forums.html">FORUM</a></li>
-                                        <!-- <ul class="submenu">
-                                                        <li><a href="blog.html">News Page</a></li>
-                                                        <li><a href="blog-details.html">News Details</a></li>
-                                                    </ul>
-                                                </li> -->
-                                        <li class="show"><a href="contact.html">contact</a></li>
-                                    </ul>
-                                </div>
-                                <div class="header-action">
-                                    <ul>
-                                        <li class="header-shop-cart">
-                                            <a href="#">
-                                                <i class="fi fi-sr-user"></i>
-                                                <ul class="minicart">
-                                                    <li class="d-flex align-items-start">
-
-                                                        <div class="cart-content">
-                                                            <h4>
-                                                                <a href="<?php echo $loggedIn ?  "profile.php" : "#" ?>"><?php echo $loggedIn ? "Hello  &nbsp;" . $user['username'] : "Join the community now!" ?></a>
-                                                            </h4>
-
-                                                    </li>
-                                                    <li>
-                                                        <div class="checkout-link">
-
-                                                            <a href="<?php echo $loggedIn ?  "profile.php" : "signin.php" ?>"><?php echo $loggedIn ?  "Profile" : "Login" ?></a>
-                                                            <a class="red-color" href="<?php echo $loggedIn ?  'logout.php' : "signup.php" ?>"><?php echo $loggedIn ?  "Log out" : "Sign up" ?></a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+      </div>
+    </div>
+    <div id="sticky-header" class="transparent-header">
+      <div class="container-fluid s-container-full-padding">
+        <div class="row">
+          <div class="col-12">
+            <div class="main-menu menu-style-two">
+              <nav>
+                <div class="logo">
+                  <a href="index.php"><img src="img/logo/logo.png" class="logoh" alt="logo" /></a>
+                </div>
+                <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
+                  <ul>
+                    <li ><a href="index.php">Home</a></li>
+                    <!-- <li><a href="#">Pages</a></li> -->
+                    <!-- <li><a href="game-overview.html">Overview</a></li> -->
+                    <!-- <li><a href="community.html">Community</a></li> -->
+                    <li ><a href="displaytrades.php">Trade</a>
+                                        <?php if(isset($_SESSION["user"])){?>
+                                            <ul class="submenu">
+                                                <li><a href="myOnGoingTrades.php">My ongoing trades</a></li>
+                                                <li><a href="doneDealsf.php">Done Deals</a></li>
+                                            </ul>
+                                            <?php }?>
                                         </li>
-
+                    <li >
+                                    <a href="../controller/displayAllAuctions.php">Auctions</a>
+                                    <?php if(isset($_SESSION["user"])){?>
+                                    <ul style="display: flex;flex-direction: column;" class="submenu">
+                                        <li><a href="displayownedauctionsview.php">my auctions</a></li>
                                     </ul>
-                                </div>
-                                <div class="header-action">
+                                    <?php }?>
+                                </li>
+                    
+                    <li><a href="POINTSSHOP.php">POINTS SHOP</a>
+                    <?php if(isset($_SESSION["user"])){?>
+                    <ul class="submenu">
+                                                <li><a href="orders.php">My orders</a></li>
+                                            </ul>
+                                            <?php }?>
+                                        </li>
+                    <!-- <ul class="submenu">
+                                                <li><a href="blog.html">News Page</a></li>
+                                                <li><a href="blog-details.html">News Details</a></li>
+                                            </ul>
+                                        </li> -->
+                    <li><a href="categories.php">FORUM</a></li>
+                    <li >
+                                    <a id="repnav" href="ajouterreclamation.php">Report</a>
+                                    <?php if(isset($_SESSION["user"])){?>
+                                    <ul style="display: flex;flex-direction: column;" class="submenu">
+                                    
+                                      
+                                        <li><a href="consulterreclamation.php">Report History</a></li> 
+                                        
+                                    </ul>
+                                    <?php }?>
+                                </li>
+                  </ul>
+                </div>
+
+                <div class="header-action">
+                  <ul>
+                    <li class="header-shop-cart">
+                      <a href="#">
+                        <i class="fi fi-sr-user"></i>
+                        <ul class="minicart">
+                          <li class="d-flex align-items-start">
+
+                            <div class="cart-content">
+                              <h4>
+                                <?php if ($loggedIn == false) { ?>
+                                  <a href="#">Join the community now!</a>
+                                <?php } elseif ($loggedIn == true && $user['isVerified'] == true) { ?>
+                                  <a href="profile.php"><?php echo "Hello  &nbsp;" . $user['username'] ?></a>
+                                <?php } elseif ($loggedIn == true && $user['isVerified'] == false) { ?>
+                                  <a href="#"><?php echo "Hello  &nbsp;" . $user['username'] . "<br> Your account is not verified! Please check your email!" ?></a>
+                                <?php }  ?>
+                              </h4>
+                          </li>
+                          <li>
+                            <?php if ($loggedIn == false) { ?>
+                              <div class="checkout-link">
+                                <a href="signin.php">Login As Member </a>
+                                <a href="signinAdmin.php">Login As Admin </a>
+                                <a class="red-color" href="signup.php">Sign up</a>
+                              </div>
+                            <?php } elseif ($loggedIn == true && $user['role'] == 'MEMBER' && $user['isVerified'] == true) { ?>
+                              <div class="checkout-link">
+                                <a href="profile.php">Member Profile </a>
+                                <a class="red-color" href="logout.php">Log Out</a>
+                              </div>
+                            <?php } elseif ($loggedIn == true && $user['role'] == 'ADMIN'  && $user['isVerified'] == true) { ?>
+                              <div class="checkout-link">
+                                <a href="backendfinale.php">Admin Dashboard</a>
+                                <a class="red-color" href="logout.php">Log Out</a>
+                              </div>
+                            <?php } elseif ($loggedIn == true &&  $user['isVerified'] == false) { ?>
+                              <div class="checkout-link">
+                                <a class="red-color" href="logout.php">Log Out</a>
+                              </div>
+                            <?php }  ?>
+                          </li>
+                        </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="header-action">
                                     <ul>
-                                        <li class="header-shop-cart"><a href="#">
-                                                <img src="img/icon/tradeCart.png" width="25px" alt="tradeCart">
-                                                <span>0</span></a>
-                                            <ul class="minicart">
-                                                <li class="d-flex align-items-start">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/cart_p01.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-content">
-                                                        <h4>
-                                                            <a href="#">Xbox One Controller</a>
-                                                        </h4>
-                                                        <div class="cart-price">
-                                                            <span class="new">$229.9</span>
-                                                            <span>
-                                                                <del>$229.9</del>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="del-icon">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="total-price">
-                                                        <span class="f-left">Total:</span>
-                                                        <span class="f-right">$239.9</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="checkout-link">
-                                                        <a href="cart.html">Shopping Cart</a>
-                                                        <a class="red-color" href="checkout.html">Checkout</a>
-                                                    </div>
-                                                </li>
+                                        <li class="header-shop-cart"><a href="#"><i class="fas fa-shopping-basket"
+                                                    style="color:rgb(54, 169, 225);"></i><span id='qofbasket'>0</span></a>
+                                            <ul id='shopcart' class="minicart">
+                                                
+                                                
                                             </ul>
                                         </li>
-                                        <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal"><i class="fas fa-search"></i></a></li>
+                                        <li class="header-search"><a href="#" data-toggle="modal"
+                                                data-target="#search-modal"><i class="fas fa-search"></i></a></li>
                                     </ul>
                                 </div>
-                            </nav>
-                        </div>
-                        <div class="mobile-menu"></div>
-                    </div>
-                    <!-- Modal Search -->
-                    <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <form>
-                                    <input type="text" placeholder="Search here...">
-                                    <button><i class="fa fa-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
+              </nav>
             </div>
+            <div class="mobile-menu"></div>
+          </div>
+          <!-- Modal Search -->
+          <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <form>
+                  <input type="text" placeholder="Search here..." />
+                  <button><i class="fa fa-search"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
     <!-- header-area-end -->
 
     <!-- main-area -->
@@ -257,13 +304,17 @@
             <div class="container text-center pl-50">
                 <div class="row">
 
-                    <div class="col-lg-6 pl-100">
+                    <div class="col-lg-10 pl-100">
                         <div class="section-title title-style-three mb-20">
                             <h2>Edit <?php echo $user['username'] . "'s" ?><span> <?php echo  "&nbsp;" . "Profile"  ?></span></h2>
                         </div>
                         <div class="contact-form">
-                            <form method="POST" action="../controller/userController.php">
+                            <form method="POST" action="../controller/userController.php" enctype="multipart/form-data">
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="label">Image</label>
+                                        <input type="file" name="image" >
+                                    </div>
                                     <div class="col-md-6">
                                         <label class="label">Username</label>
                                         <input type="text" name="username" placeholder="<?php echo $user['username'] ?>">

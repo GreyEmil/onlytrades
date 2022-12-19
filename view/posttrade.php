@@ -61,7 +61,7 @@
 																						<i class="far fa-check-circle success-icon"></i>
 																						<div class="error"></div>
 																				</div>
-																				<p class="mb-0 mt-4 text-center"><a href="trade.php" class="link">Go
+																				<p class="mb-0 mt-4 text-center"><a href="displaytrades.php" class="link">Go
 																						back</a></p>
 																		</div>
 																	</div>

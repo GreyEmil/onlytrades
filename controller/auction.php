@@ -19,7 +19,7 @@ class auction
     $_SESSION["temp"]["addDate"]=$data["addDate"];
     
     
-    header("location: ../view/auctionView.php");
+    header("location: ../view/auctionView.php?");
   }
 
   public static function fetchAuction($id)
@@ -88,9 +88,9 @@ class auction
   {
     auctionModel::removeOffer($idOffer);
   }
-  public static function checkOfferExistance($idUser)
+  public static function checkOfferExistance($idUser,$idAcution)
   {
-    return auctionModel::checkOfferExistance($idUser);
+    return auctionModel::checkOfferExistance($idUser,$idAcution);
   }
   public static function removeMyOffer($myId)
   {

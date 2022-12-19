@@ -35,6 +35,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
     
 </head>
 
@@ -51,6 +55,7 @@
     </div>
     <!-- preloader-end -->
 
+  
     <!-- header-area -->
     <?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
     <script type="text/javascript">
@@ -70,7 +75,7 @@
     </script>
   <?php } $_SESSION['edit']="";?>
 
-  <!-- preloader-end -->
+ 
 
   <!-- header-area -->
   <header>
@@ -161,19 +166,29 @@
                     <!-- <li><a href="game-overview.html">Overview</a></li> -->
                     <!-- <li><a href="community.html">Community</a></li> -->
                     <li ><a href="displaytrades.php">Trade</a>
+                                        <?php if(isset($_SESSION["user"])){?>
                                             <ul class="submenu">
                                                 <li><a href="myOnGoingTrades.php">My ongoing trades</a></li>
                                                 <li><a href="doneDealsf.php">Done Deals</a></li>
                                             </ul>
+                                            <?php }?>
                                         </li>
                     <li class="show">
-                                    <a href="../controller/displayAllAuctions.php" >Auctions</a>
+                                    <a href="../controller/displayAllAuctions.php">Auctions</a>
+                                    <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
-                                        <li><a href="displayownedauctionsview.php">my auctions</a></li>
+                                        <li ><a href="displayownedauctionsview.php">my auctions</a></li>
                                     </ul>
+                                    <?php }?>
                                 </li>
-                    <li><a href="../controller/displayAllCompetitions.php">Competitions</a>
-                    <li><a href="POINTSSHOP.php">POINTS SHOP</a></li>
+                    
+                    <li><a href="POINTSSHOP.php">POINTS SHOP</a>
+                    <?php if(isset($_SESSION["user"])){?>
+                    <ul class="submenu">
+                                                <li><a href="orders.php">My orders</a></li>
+                                            </ul>
+                                            <?php }?>
+                                        </li>
                     <!-- <ul class="submenu">
                                                 <li><a href="blog.html">News Page</a></li>
                                                 <li><a href="blog-details.html">News Details</a></li>
@@ -181,11 +196,15 @@
                                         </li> -->
                     <li><a href="categories.php">FORUM</a></li>
                     <li >
-                                    <a href="javascript:;">Report</a>
+                                    <a id="repnav" href="ajouterreclamation.php">Report</a>
+                                    <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
-                                        <li><a href="ajouterreclamation.php">Send Report</a></li>
+                                    
+                                      
                                         <li><a href="consulterreclamation.php">Report History</a></li> 
+                                        
                                     </ul>
+                                    <?php }?>
                                 </li>
                   </ul>
                 </div>
@@ -270,7 +289,7 @@
       </div>
     </div>
   </header>
-    
+    <!-- header-area-end -->
     
     
     <!-- header-area-end -->
@@ -291,7 +310,7 @@
                                     <li class="breadcrumb-item active" aria-current="page">Auction</li>
                                 </ol>
                             </nav>
-                            <a href="auctionCreateView.php" class="btn btn-style-two " style="left:600px;margin-bottom:30px;">Start Your Own Auction</a>
+                            <a id="createAUU" href="auctionCreateView.php" class="btn btn-style-two " style="left:600px;margin-bottom:30px;">Start Your Own Auction</a>
                         </div>
                     </div>
                 </div>
@@ -313,6 +332,8 @@
             {
             for($i=0;$i<count($_SESSION["auctions"]);$i++)
             {
+              if($_SESSION["auctions"][$i]["status"]!="CLOSED")
+              {
                $now=time();
                $dateOnSec=strtotime($_SESSION["auctions"][$i]["startDate"]);
                $timeleftInSec=$dateOnSec-$now;
@@ -364,6 +385,7 @@
      
             }
         }
+      }
             ?>
             
         
@@ -550,6 +572,22 @@
                 }
             }
         })
+    </script>
+    <script>
+      function checkIfLoggedIn(e)
+{
+    var si= <?php if(isset($_SESSION["user"])) echo 1; else echo 0;?>;
+    e.preventDefault();
+    
+    if(si==0)
+    window.location.href="../view/signin.php";
+    else
+    window.location=$(this).attr("href");
+   
+}
+$('#createAUU').click(checkIfLoggedIn);
+
+  </script>
     </script>
 </body>
 

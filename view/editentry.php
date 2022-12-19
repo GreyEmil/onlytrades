@@ -1,4 +1,9 @@
-<?php include('../controller/userController.php') ?>
+<?php if(!isset($_SESSION)) session_start() ;
+require_once "../controller/forum.php";
+
+
+
+?>
 <!doctype html>
 <html class="no-js" lang="">
     
@@ -26,10 +31,14 @@
         <link rel="stylesheet" href="css/default.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/forum.css">
+        <link rel="stylesheet" href="css/report.css">
+        <script src="https://kit.fontawesome.com/9ee4261700.js" crossorigin="anonymous"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 
+<?php include('../controller/userController.php') ?>
     </head>
     <body>
 
@@ -181,8 +190,8 @@
                                                 <li><a href="blog-details.html">News Details</a></li>
                                             </ul>
                                         </li> -->
-                    <li  class="show"><a href="categories.php">FORUM</a></li>
-                    <li>
+                    <li class="show"><a href="categories.php">FORUM</a></li>
+                    <li >
                                     <a id="repnav" href="ajouterreclamation.php">Report</a>
                                     <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
@@ -308,114 +317,22 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="community-wrap">
-                                <div class="table-responsive-xl">
-                                    <table class="table mt-0">
-                                        <thead>
-                                            <tr>
-                                               
-                                                
-                                                <th scope="col">CATEGORIES</th>
-                                                
-                                                
-                                            </tr>
-                                        </thead>
-                                        
-                                        <tbody>
-                                            >
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="community-post-wrap">
-                                                        <div class="community-post-content">
-                                                            <a href="threads.php?category=News">News</a>
-                                                            
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </th>
-                                                
-
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="community-post-wrap">
-                                                        <div class="community-post-content">
-                                                            <a href="threads.php?category=General">General</a>
-                                                            
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </th>
-                                                
-                                                
-                                                
-                                            </tr>
-                                                
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="community-post-wrap">
-                                                        <div class="community-post-content">
-                                                            <a href="threads.php?category=Games">Games</a>
-                                                            
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </th>
-                                                
-                                                
-                                                
-                                            </tr>
-                                            
-
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="community-post-wrap">
-                                                        <div class="community-post-content">
-                                                            <a href="threads.php?category=Trades">Trades</a>
-                                                            
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </th>
-                                                
-                                                
-                                                
-                                            </tr>
-
-
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="community-post-wrap">
-                                                        <div class="community-post-content">
-                                                            <a href="threads.php?category=Auctions">Auctions</a>
-                                                            
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </th>
-                                                
-                                                
-                                                
-                                            </tr>
-
-
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="community-post-wrap">
-                                                        <div class="community-post-content">
-                                                            <a href="#">Help</a>
-                                                            
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </th>
-                                                
-                                                
-                                               
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
+                            <div class="title"><?php if($_GET['type']==1) echo "EDIT YOUR THREAD";else  echo "EDIT YOUR COMMENT"?></div>
+                                
+                                    
+                                    
+                                    <div class="comments">
+                                        <div class="col-lg-10">
+                                        <form action="../controller/addNewThread.php?idThread=<?php echo $_SESSION["tempThread"]["info"]["id"] ?>&&idUser=<?php if(isset($_SESSION["user"]["id"]))echo $_SESSION["user"]["id"]; ?> " method="POST">
+                                            <label for="content" class="newthread-label">Add commment: </label>
+                                            <?php if($_GET['type']==1) echo '<label for="subject" class="newthread-label" style="color:black"> Subject</label>
+                                                            <input id="subject" name="subject" type="textarea" class="newthread-input" >';?>
+                                            <textarea name="content" id="content" cols="30" rows="10"  class="newthread-input"></textarea>
+                                            <button type="submit" id="submitb" class="submit" style="display:block;margin-top:20px;margin-left:10px">Edit</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                                    
                                 </div>
                                 
                                 
@@ -560,6 +477,20 @@
             </div>
         </footer>
         <!-- footer-area-end -->
+        <div class="report" id="report">
+    <form id="formF" method="post" action="../controller/report.php" enctype="multipart/form-data">
+        <label for="username">Username</label>
+        <input class="inputt" type="text" id ="username" name="username"  placeholder="Item Name" required="required" />
+        
+        <p id="name_error" class="error" ></p>
+        <textarea class="inputt"  name="message" id="message"  placeholder="Item Description" required ></textarea>
+        <p id="description_error" class="error"></p>
+        <input class="inputt" type="text" id ="id_thread" style="display:none" name="id_thread"  placeholder="Item Name" value="<?php echo $_SESSION["tempThread"]["info"]["id"]; ?>"  />
+        <input class="inputt" type="text" id ="id_reporter" style="display:none" name="id_reporter"  placeholder="Item Name" value="<?php echo $_SESSION["user"]["id"]; ?>"  />
+        <input class="inputt" type="text" id ="type" style="display:none" name="type"  placeholder="Item Name" value=""  />
+        <input class="inputt" type="text" id ="id_comment" style="display:none" name="id_comment"  placeholder="Item Name" value=""  />
+        <button type="submit" name="form_submit" id="form_submit" class="btnn btnn-primary btnn-block btnn-large">Report</button>
+    </form>
 
 
 
@@ -585,7 +516,139 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/vendor/jquery-3.4.1.min.js"></script>
+        <script>
+            $("#like").click(function()
+            {
+                $.when($.ajax({
+                    url:'../controller/Like.php',
+                    type:'post',
+                    data:{'idUser':<?php if(isset($_SESSION["user"]["id"]))echo $_SESSION["user"]["id"];else echo 0; ?>,
+                    'idThread': <?php echo $_SESSION["tempThread"]["info"]["id"]; ?>},
+                    
+                })).then(function(data){
+                    if(data.trim()=='liked') $('#like').removeClass( "like-btn" ).addClass( "liked" );
+                    if(data.trim()=='unliked') $('#like').removeClass( "liked" ).addClass( "like-btn" );
+                    getLikes();
+                });
+            });
+            function getLikes()
+            {
+                $.when($.ajax({
+                    url:'../controller/Like.php',
+                    type:'post',
+                    data:{'idThread': <?php echo $_SESSION["tempThread"]["info"]["id"]; ?>},
+                    
+                })).then(function(data){$("#likes").text(data.trim())});
+            }
+           
+            
+                $("#submit").click(function(e){
+                    if($('#comment').val()=='')
+                    {
+                        e.preventDefault();
+                        alert('you cant add an empty comment');
+                    }
+                    
+                    if('<?php if(isset($_SESSION["user"]["id"])) echo 'true'; else echo 'false'; ?>'=='false') 
+                    {
+                        e.preventDefault();
+                        
+                    }
+                })
+
+        </script>
+        <script>
+            var isPrompted=0;
+            var btnId;
+            function reportPrompt(rep){
+            
+                $('footer').css("filter","blur(20px)");
+                $('header').css("filter","blur(20px)");
+                $('main').css("filter","blur(20px)");
+                $('#report').css("display","block");
+                $('#username').val(rep.id)
+                $('#message').val(rep.parentElement.previousElementSibling.innerText)
+                $('#type').val(1);
+                $('#username').prop('disabled',true);
+                $('#message').prop('disabled',true);
+                btnId=rep.id;
+                
+               
+        }
+        function reportPromptC(rep,id){
+            
+            $('footer').css("filter","blur(20px)");
+            $('header').css("filter","blur(20px)");
+            $('main').css("filter","blur(20px)");
+            $('#report').css("display","block");
+            $('#username').val(rep.parentElement.previousElementSibling.children[2].innerText.substring(rep.parentElement.previousElementSibling.children[2].innerText.indexOf("AKA")+4))
+            $('#message').val(rep.previousElementSibling.innerText)
+            $('#type').val(0);
+            $('#id_comment').val(id);
+            $('#username').prop('disabled',true);
+            $('#message').prop('disabled',true);
+            btnId=rep.id;
+            
+           
+    }
+        $('html').click(function(e){
+            if($(e.target).closest("#report").length === 0  && e.target.id!=btnId ){
+                $('footer').css("filter","none");
+                $('header').css("filter","none");
+                $('main').css("filter","none");
+                $('#report').css("display","none");
+                  
+            }
+        });
+        $('#form_submit').click(function(){
+            $('#username').prop('disabled',false);
+            $('#message').prop('disabled',false);
+        })
+        </script>
+        <script>
+            var type=<?php echo $_GET["type"] ;?>;
+            var idThread=<?php echo $_GET["idthread"] ;?>;
+            var idComment=<?php if($_GET["type"]==0) echo $_GET["idcomment"] ; else echo -1;?>;
+            $('#submitb').click(edit);
+
+            function edit(e)
+            {
+                e.preventDefault();
+                if(type==1)
+                {
+                    
+                    $.when($.ajax({
+                        url:'../controller/addnewthread.php',
+                        type:'post',
+                        data:{'idthread':idThread,
+                        'content':$('#content').val(),
+                        'subject':$('#subject').val(),
+                        'request':'editthread',
+                        },
+                    })).then(function(){
+                        window.location.href="displayThread.php?id="+idThread
+                    });
+                }
+                else
+                {
+                    $.when($.ajax({
+                        url:'../controller/addnewthread.php',
+                        type:'post',
+                        data:{'idcomment':idComment,
+                        'content':$('#content').val(),
+                        'request':'editcomment',
+                        
+                        },
+                    })).then(function(){
+                        window.location.href="displayThread.php?id="+idThread
+                    });
+
+                }
+            }
+        </script>
     </body>
 
 <!-- Mirrored from themebeyond.com/html/geco/Geco/community.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 31 Oct 2022 12:58:13 GMT -->
 </html>
+

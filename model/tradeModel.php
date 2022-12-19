@@ -1,6 +1,6 @@
 <?php
 require_once "../controller/config.php";
-
+session_start();
 
 class tradeModel{
 
@@ -123,8 +123,8 @@ class tradeModel{
         $u2=$req->fetchAll()[0];
 
         $req=$db->prepare("UPDATE user SET points=points+? WHERE id=?");
-        $req->execute(array(500,$u1["id_user"]));
-        $req->execute(array(500,$u2["id_user"]));
+        $req->execute(array(30000,$u1["id_user"]));
+        $req->execute(array(30000,$u2["id_user"]));
 
         
         $req=$db->prepare("SELECT * FROM offer WHERE chosen=? AND id_trade=?");
@@ -144,6 +144,11 @@ class tradeModel{
 
         $req=$db->prepare("UPDATE trade SET status=? WHERE id=?");
         $req->execute(array("ACCEPTED",$id));
+
+        $req=$db->prepare("SELECT points FROM user  WHERE id=?");
+        $req->execute(array($_SESSION["user"]["id"]));
+        $_SESSION["user"]["points"]=$req->fetchAll()[0]["points"];
+
 
     }
 

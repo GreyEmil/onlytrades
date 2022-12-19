@@ -113,6 +113,33 @@ class forumModel
     }
     return $threads;
   }
+
+  public static function getAllThreads()
+  {
+    $db=config::getConnexion();
+    $req=$db->prepare("SELECT * FROM thread  ");
+    $req->execute(array());
+    $threads=$req->fetchAll();
+    $req=$db->prepare("SELECT first_name,last_name,username,photo FROM user where id=? ");
+    $views=$db->prepare("SELECT id FROM view where id_thread=? ");
+    $comments=$db->prepare("SELECT id FROM comment where id_thread=? ");
+    $lastUpdate=$db->prepare("SELECT * FROM comment WHERE last_modification = (SELECT max(last_modification) FROM comment WHERE id_thread=?) ");
+    for($i=0 ;$i<count($threads);$i++ )
+    {
+      
+      $req->execute(array($threads[$i]["id_user"]));
+      $views->execute(array($threads[$i]['id']));
+      $comments->execute(array($threads[$i]['id']));
+      $lastUpdate->execute(array($threads[$i]['id']));
+      $threads[$i]["user"]=$req->fetchAll()[0];
+      $threads[$i]["views"]=count($views->fetchAll());
+      $threads[$i]["comments"]=count($comments->fetchAll());
+      $threads[$i]["lastComment"]=$lastUpdate->fetchAll();
+
+      
+    }
+    return $threads;
+  }
   public static function view($idThread,$idUser)
    {
     $db=config::getConnexion();
@@ -143,4 +170,33 @@ class forumModel
     $req=$db->prepare("INSERT INTO comment  (content,last_comment,id_thread,last_modification,id_writer) VALUES(?,?,?,?,?)");
     $req->execute(array($comment["comment"],1,$idThread,date('Y-m-d H:i:s'),$idUser));
    }
+
+   public static function editThread($info)
+   {
+    $db=config::getConnexion();
+    $req=$db->prepare("UPDATE thread SET content=?,subject=? where id=?");
+    $req->execute(array($info["content"],$info["subject"],$info["idthread"]));
+   }
+
+   public static function editComment($info)
+   {
+    $db=config::getConnexion();
+    $req=$db->prepare("UPDATE comment SET content=? where id=?");
+    $req->execute(array($info["content"],$info["idcomment"]));
+   }
+
+   public static function deleteComment($id)
+   {
+    $db=config::getConnexion();
+    $req=$db->prepare("DELETE FROM comment where id=?");
+    $req->execute(array($id));
+   }
+
+   public static function deleteThread($id)
+   {
+    $db=config::getConnexion();
+    $req=$db->prepare("DELETE FROM thread where id=?");
+    $req->execute(array($id));
+   }
+
 }

@@ -6,7 +6,7 @@ if(isset($_POST['getNumber']))
 }
 else{
 if(isset($_POST['idUser']))
-echo auction::checkOfferExistance($_POST['idUser']);
+echo auction::checkOfferExistance($_POST['idUser'],$_POST['idAuction']);
 else
 {
 if(isset($_POST['forModification']))

@@ -1,4 +1,4 @@
-<?php include('../controller/userController.php');
+<?php 
 include('../model/tradeModel.php');
 $trades=tradeModel::getTrades();
 ?>
@@ -31,7 +31,11 @@ $trades=tradeModel::getTrades();
   <link rel="stylesheet" href="css/responsive.css" />
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+
+
+<?php include('../controller/userController.php') ?>
+
 </head>
 <!-- php section start-->
 
@@ -48,6 +52,7 @@ $trades=tradeModel::getTrades();
       </div>
     </div>
   </div>
+  <!-- header-area -->
   <?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
     <script type="text/javascript">
       $(document).ready(function() {
@@ -66,7 +71,7 @@ $trades=tradeModel::getTrades();
     </script>
   <?php } $_SESSION['edit']="";?>
 
-  <!-- preloader-end -->
+ 
 
   <!-- header-area -->
   <header>
@@ -85,7 +90,7 @@ $trades=tradeModel::getTrades();
     ]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
-    <?php if ((isset($_SESSION['id']))) {
+    <?php if ((isset($_SESSION['user']))) {
       $loggedIn = true;
     } else {
       $loggedIn = false;
@@ -101,74 +106,85 @@ $trades=tradeModel::getTrades();
       }
     }
     ?>
-        <div class="header-top-area s-header-top-area d-none d-lg-block">
-            <div class="container-fluid s-container-full-padding">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 d-none d-lg-block">
-                        <div class="header-top-offer">
-                            <p style="color: rgb(54, 169, 225);">Premium Offer</p>
-                            <span class="coming-time" data-countdown="2022/11/15"></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="header-top-right">
-                            <!-- <div class="header-social">
-                                        <ul>
-                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                        </ul>
-                                    </div> -->
-                            <div class="header-top-action">
-                                <ul>
-                                    <li>
-                                        <div class="header-top-mail">
-                                            <p><span></span>
-                                                <!-- <i class="far fa-envelope"></i><a
-                                                            href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
-                                                                class="__cf_email__"
-                                                                data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
-                                                            </a> -->
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="header-top-area s-header-top-area d-none d-lg-block">
+      <div class="container-fluid s-container-full-padding">
+        <div class="row align-items-center">
+          <div class="col-lg-6 d-none d-lg-block">
+            <div class="header-top-offer">
+              <p style="color: rgb(54, 169, 225)">Premium Offer</p>
+              <span class="coming-time" data-countdown="2022/11/15"></span>
             </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="header-top-right">
+              <!-- <div class="header-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div> -->
+              <div class="header-top-action">
+                <ul>
+                  <li>
+                    <div class="header-top-mail">
+                      <p>
+                        <span></span>
+                        <!-- <i class="far fa-envelope"></i><a
+                                                    href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
+                                                        class="__cf_email__"
+                                                        data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
+                                                    </a> -->
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="sticky-header" class="transparent-header">
-            <div class="container-fluid s-container-full-padding">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="main-menu menu-style-two">
-                            <nav>
-                            <div class="logo">
+      </div>
+    </div>
+    <div id="sticky-header" class="transparent-header">
+      <div class="container-fluid s-container-full-padding">
+        <div class="row">
+          <div class="col-12">
+            <div class="main-menu menu-style-two">
+              <nav>
+                <div class="logo">
                   <a href="index.php"><img src="img/logo/logo.png" class="logoh" alt="logo" /></a>
                 </div>
                 <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
                   <ul>
-                    <li><a href="index.php">Home</a></li>
+                    <li ><a href="index.php">Home</a></li>
                     <!-- <li><a href="#">Pages</a></li> -->
                     <!-- <li><a href="game-overview.html">Overview</a></li> -->
                     <!-- <li><a href="community.html">Community</a></li> -->
-                    <li class="show"><a href="trade.php">Trade</a>
+                    <li class="show"><a href="displaytrades.php">Trade</a>
+                                        <?php if(isset($_SESSION["user"])){?>
                                             <ul class="submenu">
-                                                <li><a href="OnGoingTrades.php">My ongoing trades</a></li>
-                                                <li><a href="doneDeals.php">Done Deals</a></li>
+                                                <li><a href="myOnGoingTrades.php">My ongoing trades</a></li>
+                                                <li><a href="doneDealsf.php">Done Deals</a></li>
                                             </ul>
+                                            <?php }?>
                                         </li>
                     <li >
                                     <a href="../controller/displayAllAuctions.php">Auctions</a>
+                                    <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
                                         <li><a href="displayownedauctionsview.php">my auctions</a></li>
                                     </ul>
+                                    <?php }?>
                                 </li>
-                    <li><a href="../controller/displayAllCompetitions.php">Competitions</a>
-                    <li><a href="POINTSSHOP.php">POINTS SHOP</a></li>
+                    
+                    <li><a href="POINTSSHOP.php">POINTS SHOP</a>
+                    <?php if(isset($_SESSION["user"])){?>
+                    <ul class="submenu">
+                                                <li><a href="orders.php">My orders</a></li>
+                                            </ul>
+                                            <?php }?>
+                                        </li>
                     <!-- <ul class="submenu">
                                                 <li><a href="blog.html">News Page</a></li>
                                                 <li><a href="blog-details.html">News Details</a></li>
@@ -176,14 +192,19 @@ $trades=tradeModel::getTrades();
                                         </li> -->
                     <li><a href="categories.php">FORUM</a></li>
                     <li >
-                                    <a href="javascript:;">Report</a>
+                                    <a id="repnav" href="ajouterreclamation.php">Report</a>
+                                    <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
-                                        <li><a href="ajouterreclamation.php">Send Report</a></li>
+                                    
+                                      
                                         <li><a href="consulterreclamation.php">Report History</a></li> 
+                                        
                                     </ul>
+                                    <?php }?>
                                 </li>
                   </ul>
                 </div>
+
                 <div class="header-action">
                   <ul>
                     <li class="header-shop-cart">
@@ -217,7 +238,7 @@ $trades=tradeModel::getTrades();
                               </div>
                             <?php } elseif ($loggedIn == true && $user['role'] == 'ADMIN'  && $user['isVerified'] == true) { ?>
                               <div class="checkout-link">
-                                <a href="userDashboard.php">Admin Dashboard</a>
+                                <a href="backendfinale.php">Admin Dashboard</a>
                                 <a class="red-color" href="logout.php">Log Out</a>
                               </div>
                             <?php } elseif ($loggedIn == true &&  $user['isVerified'] == false) { ?>
@@ -243,25 +264,27 @@ $trades=tradeModel::getTrades();
                                                 data-target="#search-modal"><i class="fas fa-search"></i></a></li>
                                     </ul>
                                 </div>
-                            </nav>
-                        </div>
-                        <div class="mobile-menu"></div>
-                    </div>
-                    <!-- Modal Search -->
-                    <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <form>
-                                    <input type="text" placeholder="Search here..." id="search-input">
-                                    <i class="fa fa-search"></i>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
+              </nav>
             </div>
+            <div class="mobile-menu"></div>
+          </div>
+          <!-- Modal Search -->
+          <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <form>
+                  <input type="text" placeholder="Search here..." />
+                  <button><i class="fa fa-search"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
     <!-- header-area-end -->
 
     <!-- main-area -->
@@ -284,7 +307,7 @@ $trades=tradeModel::getTrades();
                                 <br>
                                 <br>
                                 <br>
-                                <a href="posttrade.php?type=1" class="btn rotated-btn">Post offer</a>
+                                <a id="posti" href="posttrade.php?type=1" class="btn rotated-btn">Post offer</a>
                             </div>
                         </div>
                     </div>
@@ -301,7 +324,7 @@ $trades=tradeModel::getTrades();
                     for ($i = 0; $i < count($trades); $i++) {
                         if ($trades[$i]["status"] =="APPROVED" && $trades[$i]["type"]==1 &&  $_SESSION['user']["id"]!=$trades[$i]["id_user"]) {
                             
-                            echo " <div id='wraper' class='col-lg-4 col-sm-6 trade' >
+                            echo " <div id='wraper' class='col-lg-4 col-sm-6 trade' style='margin-right:20px' >
                                     <div class='accessories-item text-center mb-80'>
                                     <div class='accessories-thumb mb-30'>
                                     ";
@@ -515,6 +538,22 @@ $trades=tradeModel::getTrades();
             });
         }
 
+    </script>
+    <script>
+      function checkIfLoggedIn(e)
+{
+    var si= <?php if(isset($_SESSION["user"])) echo 1; else echo 0;?>;
+    e.preventDefault();
+    
+    if(si==0)
+    window.location.href="../view/signin.php";
+    else
+    window.location=$(this).attr("href");
+   
+}
+$('#posti').click(checkIfLoggedIn);
+
+  </script>
     </script>
 </body>
 

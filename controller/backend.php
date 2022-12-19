@@ -3,6 +3,8 @@ require_once '../model/userModel.php';
 require_once '../model/auctionModel.php';
 require_once '../model/ticketModel.php';
 require_once '../model/tradeModel.php';
+require_once '../model/merchModel.php';
+require_once '../model/forumModel.php';
 
 
 if($_POST["request"]=="checkusername")
@@ -195,6 +197,47 @@ if($_POST["request"]=="getstatistics")
     {
         echo json_encode(ticketModel::getStatistics());
     }
+
+    if($_POST["of"]=="auctions")
+    {
+        echo json_encode(auctionModel::getStatistics());
+    }
 }
+
+
+
+if($_POST["request"]=="getauctions")
+{
+    
+    echo json_encode(auctionModel::fetchAllAuctions());
+}
+
+
+if($_POST["request"]=="removeauction")
+{
+    
+    auctionModel::deleteAuction($_POST["idAuction"]);
+}
+
+
+if($_POST["request"]=="getmerch")
+{
+    
+    echo json_encode(merchModel::getMerch());
+}
+
+
+if($_POST["request"]=="getthreads")
+{
+    
+    echo json_encode(forumModel::getAllThreads());
+}
+
+if($_POST["request"]=="deletethread")
+{
+    
+    forumModel::deleteThread($_POST["idThread"]);
+}
+
 
 

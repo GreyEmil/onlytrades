@@ -27,7 +27,7 @@ $thistrade=tradeModel::getTrade($_GET["idTrade"]);
       <?php echo "<div class='card__background' style='background-image: url(data:image;base64," . $thistrade["images"][0] . ");'>"; ?>
       </div>
       <div class="card__content">
-        <p class="card__category">Category</p>
+        <p class="card__category"></p>
         <h3 class="card__heading">GO BACK</h3>
       </div>
     </a>

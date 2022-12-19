@@ -99,6 +99,12 @@ $trade=tradeModel::getTrade($_GET["trade"]);
                ?>
             </span></h4>
          <ul>
+         <li><span>#ID :</span>
+               <?php
+
+               echo $trade["id"];
+               ?>
+            </li>
             <li><span>ITEM DESCRIPTION :</span>
                <?php
 

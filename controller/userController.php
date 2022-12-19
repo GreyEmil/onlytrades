@@ -1,5 +1,5 @@
 <?php if (!isset($_SESSION))session_start(); ?>
-<?php require("config.php"); 
+<?php require_once "config.php"; 
 require_once "user.php"?>
 <?php
 
@@ -9,9 +9,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
-require '/xampp/htdocs/foreal/controller/PHPMailer/src/PHPMailer.php';
-require '/xampp/htdocs/foreal/controller/PHPMailer/src/Exception.php';
-require '/xampp/htdocs/foreal/controller/PHPMailer/src/SMTP.php';
+require_once '/xampp/htdocs/foreal/controller/PHPMailer/src/PHPMailer.php';
+require_once '/xampp/htdocs/foreal/controller/PHPMailer/src/Exception.php';
+require_once '/xampp/htdocs/foreal/controller/PHPMailer/src/SMTP.php';
 
 //Load Composer's autoloader
 // require '../controller/autoload.php';
@@ -87,7 +87,7 @@ if (isset($_POST["birthdate"])) {
         setcookie('_uid_', $d_user_id, time() + 60 * 60 * 24, '/', '', '', true);
         $message = '<div style="text-align: center;"><div style="color:#1c1421;font-size: 20px;"> Please click this button to verify your <b>OnlyTrades</b> account: </div > <br><br> <div style="background-color:#1c1421;border:none;color:white;padding: 20px;text-align: center;display: inline-block;font-size: 16px;margin: 3px 2px; border-radius: 8px;"> <a href=http://localhost/foreal/view/verify.php?code='. $code .  '>  <i>Verify Account</i></a></div> <br><br> <em style="font-size: 20px;">Thank you for using OnlyTrades!</em></div>';
         sendEmail($email, "only.trades.tn@gmail.com", "Email Verification", $message);
-        header('Location: http://localhost/foreal/view/signup.php');
+        header('Location: http://localhost/foreal/view/index.php');
         die();
     }
 }
@@ -136,6 +136,11 @@ if (isset($_POST['edit_user'])) {
     } else {
         $password = $user['password'];
     }
+    if (($_FILES['image']["tmp_name"]) != null) {
+        $photo = base64_encode(file_get_contents($_FILES['image']["tmp_name"]));
+    } else {
+        $photo = $_SESSION["user"]["photo"];
+    }
     $user_nickname = $username;
     $d_user_nickname = base64_encode($user_nickname);
     // user nickname
@@ -145,7 +150,7 @@ if (isset($_POST['edit_user'])) {
 
     // $password = md5($password_1); //encrypt the password before saving in the database
     $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
-    $query = "UPDATE user SET username = :username, email = :email, first_name = :first_name, last_name = :last_name, password = :password WHERE id = :id";
+    $query = "UPDATE user SET username = :username, email = :email, first_name = :first_name, last_name = :last_name, password = :password, photo= :photo WHERE id = :id";
     $stmt = $pdo->prepare($query);
     if (
         $stmt->execute([
@@ -154,7 +159,8 @@ if (isset($_POST['edit_user'])) {
             ':first_name' => $firstName,
             ':last_name' => $lastName,
             ':password' => $password,
-            ':id' => $user['id']
+            ':id' => $user['id'],
+            ':photo' => $photo
         ])
     ) {
         $_SESSION['edit'] = 'success';
@@ -165,7 +171,7 @@ if (isset($_POST['edit_user'])) {
     } else {
         $_SESSION['edit'] = 'failed';
     }
-    header('Location: http://localhost/foreal/view/');
+    header('Location: http://localhost/foreal/view/profile.php');
     die();
 }
 
