@@ -9,9 +9,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
-require_once '/xampp/htdocs/foreal/controller/PHPMailer/src/PHPMailer.php';
-require_once '/xampp/htdocs/foreal/controller/PHPMailer/src/Exception.php';
-require_once '/xampp/htdocs/foreal/controller/PHPMailer/src/SMTP.php';
+require_once '/xampp/htdocs/onlytrades-main/controller/PHPMailer/src/PHPMailer.php';
+require_once '/xampp/htdocs/onlytrades-main/controller/PHPMailer/src/Exception.php';
+require_once '/xampp/htdocs/onlytrades-main/controller/PHPMailer/src/SMTP.php';
 
 //Load Composer's autoloader
 // require '../controller/autoload.php';
@@ -85,9 +85,9 @@ if (isset($_POST["birthdate"])) {
         $_SESSION['id'] = $_SESSION["user"]["id"];
         $d_user_id = base64_encode($last_id);
         setcookie('_uid_', $d_user_id, time() + 60 * 60 * 24, '/', '', '', true);
-        $message = '<div style="text-align: center;"><div style="color:#1c1421;font-size: 20px;"> Please click this button to verify your <b>OnlyTrades</b> account: </div > <br><br> <div style="background-color:#1c1421;border:none;color:white;padding: 20px;text-align: center;display: inline-block;font-size: 16px;margin: 3px 2px; border-radius: 8px;"> <a href=http://localhost/foreal/view/verify.php?code='. $code .  '>  <i>Verify Account</i></a></div> <br><br> <em style="font-size: 20px;">Thank you for using OnlyTrades!</em></div>';
+        $message = '<div style="text-align: center;"><div style="color:#1c1421;font-size: 20px;"> Please click this button to verify your <b>OnlyTrades</b> account: </div > <br><br> <div style="background-color:#1c1421;border:none;color:white;padding: 20px;text-align: center;display: inline-block;font-size: 16px;margin: 3px 2px; border-radius: 8px;"> <a href=http://localhost/onlytrades-main/view/verify.php?code='. $code .  '>  <i>Verify Account</i></a></div> <br><br> <em style="font-size: 20px;">Thank you for using OnlyTrades!</em></div>';
         sendEmail($email, "only.trades.tn@gmail.com", "Email Verification", $message);
-        header('Location: http://localhost/foreal/view/index.php');
+        header('Location: ../view');
         die();
     }
 }
@@ -171,7 +171,7 @@ if (isset($_POST['edit_user'])) {
     } else {
         $_SESSION['edit'] = 'failed';
     }
-    header('Location: http://localhost/foreal/view/profile.php');
+    header('Location: http://localhost/onlytrades-main/view/profile.php');
     die();
 }
 
@@ -201,7 +201,7 @@ if (isset($_POST['login_user'])) {
         $user_status = $user['isBanned'];
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
         if ($user_status == 1) {
-            header('Location: http://localhost/foreal/view/banned.php');
+            header('Location: http://localhost/onlytrades-main/view/banned.php');
             die();
         } else {
             
@@ -213,7 +213,7 @@ if (isset($_POST['login_user'])) {
 
             if ($user_role == 'ADMIN') {
                 $_SESSION['loginAs'] = 'not_user';
-                header('Location: http://localhost/foreal/view/signinAdmin.php');
+                header('Location: http://localhost/onlytrades-main/view/signinAdmin.php');
                 die();
             } else {
                 $_SESSION['login'] = 'success';
@@ -224,7 +224,7 @@ if (isset($_POST['login_user'])) {
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['role'] = $user_role;
-                header('Location: http://localhost/foreal/view/');
+                header('Location: http://localhost/onlytrades-main/view/');
                 die();
             }
          
@@ -269,11 +269,11 @@ if (isset($_POST['login_admin'])) {
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['role'] = $user_role;
-                header('Location: http://localhost/foreal/view/backendfinale.php');
+                header('Location: http://localhost/onlytrades-main/view/backendfinale.php');
                 die();
             } else {
                 $_SESSION['loginAs'] = 'not_admin';
-                header('Location: http://localhost/foreal/view/signin.php');
+                header('Location: http://localhost/onlytrades-main/view/signin.php');
                 die();
             }
          
@@ -299,15 +299,15 @@ if (isset($_POST['reset_pass_mail'])) {
         $error = "Wrong credentials!";
     } else if ($count == 1) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        $message = '<div style="text-align: center;"><div style="color:#1c1421;font-size: 20px;"> Please click this button to be redirected to your reset password page: </div > <br><br> <div style="background-color:#1c1421;border:none;color:white;padding: 20px;text-align: center;display: inline-block;font-size: 16px;margin: 3px 2px; border-radius: 8px;"> <a href=http://localhost/foreal/view/resetPassword.php>  <i>Go to reset page</i></a></div> <br><br> <em style="font-size: 20px;">Thank you for using OnlyTrades!</em></div>';
+        $message = '<div style="text-align: center;"><div style="color:#1c1421;font-size: 20px;"> Please click this button to be redirected to your reset password page: </div > <br><br> <div style="background-color:#1c1421;border:none;color:white;padding: 20px;text-align: center;display: inline-block;font-size: 16px;margin: 3px 2px; border-radius: 8px;"> <a href=http://localhost/onlytrades-main/view/resetPassword.php>  <i>Go to reset page</i></a></div> <br><br> <em style="font-size: 20px;">Thank you for using OnlyTrades!</em></div>';
         if (sendEmail($email, "only.trades.tn@gmail.com", "Reset your password", $message)) {
             $_SESSION['reset_email'] = 'success';
             $_SESSION['email'] = $email;
-            header('Location: http://localhost/foreal/view/emailresetPassword.php');
+            header('Location: http://localhost/onlytrades-main/view/emailresetPassword.php');
             die();
         }else {
             $_SESSION['reset_email'] = 'failed';
-            header('Location: http://localhost/foreal/view/emailResetPassword.php');
+            header('Location: http://localhost/onlytrades-main/view/emailResetPassword.php');
             die();
         }
       
@@ -327,6 +327,6 @@ if (isset($_POST['reset_pass'])) {
         ':email' => $_SESSION['email']
     ]);
     $_SESSION['reset'] = 'success';
-    header('Location: http://localhost/foreal/view/signin.php');
+    header('Location: http://localhost/onlytrades-main/view/signin.php');
     die();
 }
