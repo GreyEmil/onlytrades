@@ -1,0 +1,112 @@
+.all{
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+  background-image: url("bac_form.jpg");
+}
+.container{
+margin-left: 10%;
+margin-bottom: 2rem;
+margin-top: 2rem;
+}
+.inputGroup {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 1em 0 1em 0;
+    max-width: 290px;
+    position: relative;
+    margin-left: 3rem;
+  }
+  .textGroup{
+    font-family: 'Segoe UI', sans-serif;
+    margin: 1em 0 1em 0;
+    max-width: 520px;
+    position: relative;
+    margin-left: 3rem;
+  }
+  .textGroup textarea{
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+  }
+  .inputGroup input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+   
+  }
+.grouped{
+    display: flex;
+    flex-direction: row;
+}
+
+  .inputGroup :is(input:focus, input:valid ,textarea:focus,textarea:valid) {
+    border-color: rgb(150, 150, 200);
+  }
+  .textGroup :is(textarea:focus,textarea:valid) {
+    border-color: rgb(150, 150, 200);
+  }
+  .send{
+    margin-left: 3rem;
+  }
+  label{
+    display: block;
+    margin-bottom: .3rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #05060f99;
+    transition: color .3s cubic-bezier(.25,.01,.25,1) 0s;
+  }
+
+
+    p{
+        color: #fdfdfd;  
+        font-family: 'Teko', sans-serif;
+        font-size: 40px;  
+        text-align: center;  
+    }
+  h1 {
+    color: #ffffff;
+    margin: 0;
+    padding-bottom: 1rem;
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 1;
+    font-family: 'Teko', sans-serif;
+    font-size: 120px;
+    text-transform: uppercase;
+    animation: glow 2s ease-in-out infinite alternate;
+    text-align: center;
+  }
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 30px #24838d;
+    }
+    to {
+      text-shadow: 0 0 40px #34b3c1, 0 0 20px #4dbbc7;
+    }
+  }
+
+.main{
+    display: flex;
+    flex-direction: row;
+    background-color: #aacfd6;
+    border-radius: 30px;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.main img{
+    width:40%;
+    background-color: #73a8a8;
+    border-radius: 30px 0px 0px 30px;
+
+}
+
+  

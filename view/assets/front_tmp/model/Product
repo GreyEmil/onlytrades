@@ -1,0 +1,30 @@
+<?php
+require "../controller/config.php";
+class Product{
+ public function listProducts(){
+  $connect = new Config(); 
+  $client=$connect->getConnexion();
+  $sql="select * from product";
+  $result=$client->query($sql);
+  echo ("<table border='1px solid'>
+  <tr>
+  <th>ID_product</th>
+  <th>lastName</th>
+  <th>FirstName</th>
+  <th>address</th>
+  <th>Dob</th>
+  </tr>");
+  foreach ($result as $row) {
+  echo ("<tr>
+   <td>".$row['idClient']."</td>
+   <td>".$row['lastName']."</td>
+   <td>".$row['firstName']."</td>
+   <td>".$row['address']."</td>
+   <td>".$row['dob']."</td>
+  </tr>" ) ;
+}
+echo "</table>";
+ }
+}
+?>
+<!-- INSERT INTO `product` (`id`, `name`, `categorie`, `description`, `exposition_begin`, `exposition_ending`, `approuved`, `imag_url`) VALUES (NULL, 'Playstaion 5', 'console', 'new never touched still in package', '2022-11-09', '2022-11-30', '1', 'https://pic.made-in-china.com/48f37j00hTptydORszGu/PS5-Original-1tb-2tb-Console-10-Games-2-Controllers-with-1-Year-International-Warranty.jpg'); -->

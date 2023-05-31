@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Roboto", sans-serif;
+}
+body {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: linear-gradient(to bottom, #1c1121, #1c1121); /*fiolet*/
+}
+.containeradd {
+	width: 400px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.containeradd .btn {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 50px;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.containeradd .btn input{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(255, 255, 255, 0.05);
+	box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-right: 1px solid rgba(255, 255, 255, 0.1);
+	border-left:1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 30px;
+	padding: 10px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	overflow: hidden;
+	color: black;
+	font-weight: 400px;
+	z-index: 1;
+	transition: 0.5s;
+	backdrop-filter: blur(15px);
+}
+.containeradd .btn:hover input{
+	letter-spacing: 3px;
+}
+.containeradd .btn input::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+	transform: skewX(45deg) translate(0);
+	transition: 0.5s;
+	filter: blur(0px);
+}
+.containeradd .btn:hover input::before {
+	transform: skewX(45deg) translate(200px);
+}
+.containeradd .btn::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translatex(-50%);
+	bottom: -5px;
+	width: 30px;
+	height: 10px;
+	background: rgb(54, 169, 225);
+	border-radius: 10px;
+	transition: 0.5s;
+	transition-delay: 0.5;
+}
+.containeradd .btn:hover::before /*lightup button*/ {
+	bottom: 0;
+	height: 50%;
+	width: 80%;
+	border-radius: 30px;
+}
+
+.containeradd .btn::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translatex(-50%);
+	top: -5px;
+	width: 30px;
+	height: 10px;
+	background: rgb(54, 169, 225);
+	border-radius: 10px;
+	transition: 0.5s;
+	transition-delay: 0.5;
+}
+.containeradd .btn:hover::after /*lightup button*/ {
+	top: 0;
+	height: 50%;
+	width: 80%;
+	border-radius: 30px;
+}
+.containeradd .btn:nth-child(1)::before, /*chnage 1*/
+.containeradd .btn:nth-child(1)::after {
+	background: rgb(54, 169, 225);
+	box-shadow: 0 0 5px rgb(54, 169, 225), 0 0 15px rgb(54, 169, 225), 0 0 30px rgb(54, 169, 225),
+		0 0 60px rgb(54, 169, 225);
+}
+.containeradd .btn:nth-child(2)::before, /*chnage 1*/
+.containeradd .btn:nth-child(2)::after {
+	background: rgb(54, 169, 225);
+	box-shadow: 0 0 5px rgb(54, 169, 225), 0 0 15px rgb(54, 169, 225), 0 0 30px rgb(54, 169, 225),
+		0 0 60px rgb(54, 169, 225);
+}
+
+.card-wrapper{
+    min-height: 500px;
+    min-width: 500px;
+    border-radius: 10px;
+    position:absolute;
+    left: 50%;
+    bottom: 30;
+    margin-top: 30px;
+    transform: translateX(-50%);
+    background:rgb(255, 255, 255);
+    backdrop-filter: blur(13px);
+    box-shadow: 0 0 20px -2px black;
+    display:flex;
+    justify-content:center;
+    flex-direction: column;
+    padding: 20px 0;
+    color: rgba(18,18,18,0.85);
+  }
+  .call-to-action{
+    text-align:center;
+    padding: 10px 0;
+  }
+  .card-wrapper form{
+    display:flex;
+    flex-direction:column;
+  }
+  .card-wrapper form .field{
+    width: 100%;
+    position: relative;
+    font-size: 18px;
+    padding: 7px 30px;
+    white-space: nowrap;
+  }
+  .card-wrapper form .field::after{
+    content : "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+    height: 1px;
+    width: 85%;
+    padding-top: 5px;
+    border-top:1px solid rgba(18,18,18,0.6);
+  }
+
+  .card-wrapper form .field input{
+    border: 0;
+    background: transparent;
+    padding:0 5px;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    height: 30px;
+    width: calc(100% - 50px);
+    vertical-align: middle;
+  }
+  .card-wrapper form .field input:focus{
+    outline:none;
+  }
+  .card-wrapper form .field input::placeholder{
+    color: rgba(18,18,18,0.7);
+  }  
