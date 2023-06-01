@@ -1,4 +1,6 @@
-<?php if(!isset($_SESSION)) session_start() ;
+<?php
+include('../controller/userController.php') ; 
+if(!isset($_SESSION)) session_start() ;
 require_once "../controller/forum.php";
 
 
@@ -11,7 +13,7 @@ require_once "../controller/forum.php";
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Geco - eSports Gaming HTML5 Template</title>
+        <title>Edit Comment</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,22 +40,18 @@ require_once "../controller/forum.php";
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 
-<?php include('../controller/userController.php') ?>
     </head>
     <body>
-
-        <!-- preloader -->
-    <div id="preloader">
-        <div id="loading-center">
-            <div id="loading-center-absolute">
-                <img src="img/icon/o.gif" alt="">
-            </div>
-        </div>
+<!-- preloader -->
+<div id="preloader">
+    <div id="loading-center">
+      <div id="loading-center-absolute">
+        <img src="img/icon/o.gif" alt="" />
+      </div>
     </div>
-    <!-- preloader-end -->
-
-    <!-- header-area -->
-    <?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
+  </div>
+  <!-- header-area -->
+  <?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
     <script type="text/javascript">
       $(document).ready(function() {
         toastr.options.timeOut = 2500; // 1.5s
@@ -111,35 +109,19 @@ require_once "../controller/forum.php";
         <div class="row align-items-center">
           <div class="col-lg-6 d-none d-lg-block">
             <div class="header-top-offer">
-              <p style="color: rgb(54, 169, 225)">Premium Offer</p>
-              <span class="coming-time" data-countdown="2022/11/15"></span>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="header-top-right">
-              <!-- <div class="header-social">
+ <div class="header-social">
                                 <ul>
                                     <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
                                     <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
                                 </ul>
-                            </div> -->
+                            </div> 
               <div class="header-top-action">
-                <ul>
-                  <li>
-                    <div class="header-top-mail">
-                      <p>
-                        <span></span>
-                        <!-- <i class="far fa-envelope"></i><a
-                                                    href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
-                                                        class="__cf_email__"
-                                                        data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
-                                                    </a> -->
-                      </p>
-                    </div>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -157,11 +139,11 @@ require_once "../controller/forum.php";
                 </div>
                 <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
                   <ul>
-                    <li ><a href="index.php">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <!-- <li><a href="#">Pages</a></li> -->
                     <!-- <li><a href="game-overview.html">Overview</a></li> -->
                     <!-- <li><a href="community.html">Community</a></li> -->
-                    <li ><a href="displaytrades.php">Trade</a>
+                    <li ><a href="displaytrades.php" id="trade" >Trade</a>
                                         <?php if(isset($_SESSION["user"])){?>
                                             <ul class="submenu">
                                                 <li><a href="myOnGoingTrades.php">My ongoing trades</a></li>
@@ -192,7 +174,7 @@ require_once "../controller/forum.php";
                                         </li> -->
                     <li class="show"><a href="categories.php">FORUM</a></li>
                     <li >
-                                    <a id="repnav" href="ajouterreclamation.php">Report</a>
+                                    <a  href="ajouterreclamation.php" id="report">Report</a>
                                     <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
                                     
@@ -298,9 +280,8 @@ require_once "../controller/forum.php";
                             <div class="breadcrumb-content text-center">
                                 <h2>Our <span>Community</span></h2>
                                 <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="#">pages</a></li>
+                                <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Community</li>
                                     </ol>
                                 </nav>
@@ -349,134 +330,152 @@ require_once "../controller/forum.php";
         </main>
         <!-- main-area-end -->
 
-        <!-- footer-area -->
-        <footer>
-            <div class="footer-top footer-bg s-footer-bg">
-                <!-- newsletter-area -->
-                <div class="newsletter-area s-newsletter-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="newsletter-wrap">
-                                    <div class="section-title newsletter-title">
-                                        <h2>Our <span>Newsletter</span></h2>
-                                    </div>
-                                    <div class="newsletter-form">
-                                        <form action="#">
-                                            <div class="newsletter-form-grp">
-                                                <i class="far fa-envelope"></i>
-                                                <input type="email" placeholder="Enter your email...">
-                                            </div>
-                                            <button>SUBSCRIBE <i class="fas fa-paper-plane"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!-- footer-area -->
+<footer>
+    <div class="footer-top footer-bg s-footer-bg">
+      <!-- newsletter-area -->
+      <div class="newsletter-area s-newsletter-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="newsletter-wrap">
+                <div class="section-title newsletter-title">
+                  <h2>Our <span>Newsletter</span></h2>
                 </div>
-                <!-- newsletter-area-end -->
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="footer-widget mb-50">
-                                <div class="footer-logo mb-35">
-                                    <a href="index.html"><img src="img/logo/logo.png" alt=""></a>
-                                </div>
-                                <div class="footer-text">
-                                    <p>Gemas marketplace the relase etras thats sheets continig passag.</p>
-                                    <div class="footer-contact">
-                                        <ul>
-                                            <li><i class="fas fa-map-marker-alt"></i> <span>Address : </span>PO Box W75 Street
-                                                lan West new queens</li>
-                                            <li><i class="fas fa-headphones"></i> <span>Phone : </span>+24 1245 654 235</li>
-                                            <li><i class="fas fa-envelope-open"></i><span>Email : </span><a href="https://themebeyond.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ef7f0f8f1defbe6fbf3eef2fbb0fdf1f3">[email&#160;protected]</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-6">
-                            <div class="footer-widget mb-50">
-                                <div class="fw-title mb-35">
-                                    <h5>Products</h5>
-                                </div>
-                                <div class="fw-link">
-                                    <ul>
-                                        <li><a href="#">Graphics (26)</a></li>
-                                        <li><a href="#">Backgrounds (11)</a></li>
-                                        <li><a href="#">Fonts (9)</a></li>
-                                        <li><a href="#">Music (3)</a></li>
-                                        <li><a href="#">Photography (3)</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-6">
-                            <div class="footer-widget mb-50">
-                                <div class="fw-title mb-35">
-                                    <h5>Need Help?</h5>
-                                </div>
-                                <div class="fw-link">
-                                    <ul>
-                                        <li><a href="#">Terms & Conditions</a></li>
-                                        <li><a href="#">Privacy Policy</a></li>
-                                        <li><a href="#">Refund Policy</a></li>
-                                        <li><a href="#">Affiliate</a></li>
-                                        <li><a href="#">FAQUse Cases</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="footer-widget mb-50">
-                                <div class="fw-title mb-35">
-                                    <h5>Follow us</h5>
-                                </div>
-                                <div class="footer-social">
-                                    <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="footer-widget mb-50">
-                                <div class="fw-title mb-35">
-                                    <h5>Newsletter Sign Up</h5>
-                                </div>
-                                <div class="footer-newsletter">
-                                    <form action="#">
-                                        <input type="text" placeholder="Enter your email">
-                                        <button><i class="fas fa-rocket"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                <div class="newsletter-form">
+                  <form action="#">
+                    <div class="newsletter-form-grp">
+                      <i class="far fa-envelope"></i>
+                      <input type="email" placeholder="Enter your email..." />
                     </div>
+                    <button>
+                      SUBSCRIBE <i class="fas fa-paper-plane"></i>
+                    </button>
+                  </form>
                 </div>
-                <div class="footer-fire"><img src="img/images/footer_fire.png" alt=""></div>
-                <div class="footer-fire footer-fire-right"><img src="img/images/footer_fire.png" alt=""></div>
+              </div>
             </div>
-            <div class="copyright-wrap s-copyright-wrap">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="copyright-text">
-                                <p>Copyright © 2020 <a href="#">Geco</a> All Rights Reserved.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 d-none d-md-block">
-                            <div class="payment-method-img text-right">
-                                <img src="img/images/card_img.png" alt="img">
-                            </div>
-                        </div>
-                    </div>
+          </div>
+        </div>
+      </div>
+      <!-- newsletter-area-end -->
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="footer-widget mb-50">
+              <div class="footer-logo mb-35">
+                <a href="index.php"><img src="img/favicon.png" class="logof" alt="logo_footer  " /></a>
+              </div>
+              <div class="footer-text">
+                <div class="footer-contact">
+                  <ul>
+                    <li>
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span>Address : </span>Agba tunisie
+                    </li>
+                    <li>
+                      <i class="fas fa-headphones"></i>
+                      <span>Phone : </span>+216 99819166
+                    </li>
+                    <li>
+                      <i class="fas fa-envelope-open"></i><span>Email : </span><a>only.trades.tn@gmail.com</a>
+                    </li>
+                  </ul>
                 </div>
+              </div>
             </div>
-        </footer>
-        <!-- footer-area-end -->
+          </div>
+          <div class="col-xl-2 col-lg-3 col-sm-6">
+            <div class="footer-widget mb-50">
+              <div class="fw-title mb-35">
+                <h5>Pages</h5>
+              </div>
+              <div class="fw-link">
+                <ul>
+                  <li><a href="displaytrades.php">Trade</a></li>
+                  <li><a href="auctions.php">Auction</a></li>
+                  <li><a href="POINTSSHOP.php">Points Shop</a></li>
+                  <li><a href="categories.php">Forum</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-sm-6">
+            <div class="footer-widget mb-50">
+              <div class="fw-title mb-35">
+                <h5>Need Help?</h5>
+              </div>
+              <div class="fw-link">
+                <ul>
+                  <li><a href="ajouterreclamation.php">Report</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="footer-widget mb-50">
+              <div class="fw-title mb-35">
+                <h5>Follow us</h5>
+              </div>
+              <div class="footer-social">
+                <ul>
+                  <li>
+                    <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"><i class="fab fa-pinterest-p"></i></a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer-widget mb-50">
+              <div class="fw-title mb-35">
+                <h5>Newsletter Sign Up</h5>
+              </div>
+              <div class="footer-newsletter">
+                <form action="#">
+                  <input type="text" placeholder="Enter your email" />
+                  <button><i class="fas fa-rocket"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-fire footer-fire-right">
+        <img src="img/images/footer_axe.png" height="306px" alt="axe_footer" />
+      </div>
+      <div class="footer-fire">
+        <img src="img/images/pickaxe_footer.png" height="299px" alt="pickaxe_footer" />
+      </div>
+    </div>
+    <div class="copyright-wrap s-copyright-wrap">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <div class="copyright-text">
+              <p>
+                Copyright © 2022 <a href="index.php">OnlyTrades</a> All
+                Rights Reserved.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 d-none d-md-block">
+            <div class="payment-method-img text-right">
+              <img src="img/images/card_img.png" alt="img" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- footer-area-end -->
         <div class="report" id="report">
     <form id="formF" method="post" action="../controller/report.php" enctype="multipart/form-data">
         <label for="username">Username</label>
@@ -647,6 +646,150 @@ require_once "../controller/forum.php";
                 }
             }
         </script>
+            <?php
+    require '../controller/merch.php';
+	error_reporting(E_ERROR | E_PARSE);
+       $tab=new merch;
+       $tab0 = $tab->affiche();
+       $id=$_SESSION["user"]["id"];
+       $paniershow=new panier;
+       $product=$paniershow->showbasket($id);
+       $length=count($product);
+       $nopoints=$_GET["nopoints"];
+     ?>       
+ <!-- Script for basket -->
+                 <script>
+                    var length="<?php if($length!=0) echo $length; else echo("") ?>";
+                    var nopoints="<?php if($nopoints!=0) echo $nopoints; else echo("") ?>";
+                    var max=0;
+                    var qbas=0;
+                    product=<?php if($length!=0) echo (json_encode($product));?>;
+                    if(length!="")
+                {
+                    shopcart=document.getElementById("shopcart");
+                    for(var i=0;i<length;i++)
+                    {
+                        const li=document.createElement("li");
+                        li.className="d-flex align-items-start";
+                        shopcart.appendChild(li);
+                       const div1=document.createElement("div");
+                        div1.className="cart-img";
+                        li.appendChild(div1);
+                        const img=document.createElement("img");
+                        img.src=product[i][0];
+                        div1.appendChild(img);
+                        const div2=document.createElement("div");
+                        div2.className="cart-content";
+                        li.appendChild(div2);
+                        const h4=document.createElement("h4");
+                        div2.appendChild(h4);
+                        const p=document.createElement("p");
+                        h4.appendChild(p);
+                        p.innerHTML=product[i][1];
+                        const div3=document.createElement("div");
+                        div3.className="cart-price";
+                        div2.appendChild(div3);
+                        const span=document.createElement("span");
+                        span.className="new";
+                        span.innerHTML="QTY: "+product[i][3];
+                        div3.appendChild(span);
+                        const div4=document.createElement("div");
+                        div4.className="cart-price";
+                        div2.appendChild(div4);
+                        const span1=document.createElement("span");
+                        span1.className="new";
+                        span1.innerHTML="PRICE: "+product[i][2];
+                        div4.appendChild(span1);
+                        const div5=document.createElement("div");
+                        div5.className="del-icon";
+                        li.appendChild(div5);
+                        const form=document.createElement("form");
+                        form.method="POST";
+                        div5.appendChild(form);
+                        const a=document.createElement("a");
+                            a.href="../model/deletepanier.php?id_prod="+product[i][5];
+                            a.id=product[i][5];
+                          form.appendChild(a);
+                        const ii=document.createElement("i");
+                        ii.className="far fa-trash-alt";
+                        ii.style.color="rgb(54, 169, 225)";
+                        a.appendChild(ii);
+                        max=max+(product[i][2]*product[i][3]);
+                        qbas=qbas+product[i][3];
+                    }
+                }
+                const qofbasket=document.getElementById('qofbasket');
+                 qofbasket.innerHTML=qbas;
+                const li2=document.createElement("li");
+                            shopcart.appendChild(li2);
+                     const div6=document.createElement("div");
+                           div6.className="total-price";
+                           li2.appendChild(div6);
+                     const span2=document.createElement("span");
+                           span2.className="f-left";
+                           span2.innerHTML="TOTAL:";
+                     const span3=document.createElement("span");
+                           span3.className="f-right";
+                           span3.setAttribute("id","total");
+                           div6.appendChild(span2);
+                           div6.appendChild(span3);
+                       var total=document.getElementById('total');
+                       total.innerHTML=max+' OTP';
+                       // 
+                       const span4=document.createElement("span");
+                             span4.className="f-left";
+                             span4.style.color="red";
+                             div6.appendChild(span4);
+                             span4.innerHTML="you don't have enough points";
+                             span4.style.display="none";
+                             span4.id="nopoints";
+                       const li3=document.createElement("li");
+                            shopcart.appendChild(li3);
+                       const div7=document.createElement("div");
+                             div7.className="checkout-link";
+                             li3.appendChild(div7);
+                       const a2=document.createElement("a");
+                            a2.className="red-color";
+                            a2.id="checkout";
+                            a2.href="../model/checkout.php";
+                            a2.innerHTML="Checkout";
+                            div7.appendChild(a2);
+                            $('#checkout').click(checkout);
+                            function checkout(e){
+                            e.preventDefault();
+                            $.when($.ajax(
+                                {
+                                    url:'../model/checkout.php',
+                                    type:'POST',
+                                    data:{'check' : max},
+                                }
+                            )).then(function(data)
+                            {
+                                if(data=="enough")
+                                {
+                                    $('#shopcart').html('');
+                                    $('#qofbasket').html('0');
+                                    $.when($.ajax({
+                                        url:'../model/checkout.php',
+                                        type:'POST',
+                                        data:{'total' : max},
+                                            
+                                        })).then(
+                                        function(data)
+                                        { 
+                                           
+                                        }
+                                    )
+                                }
+                                else
+                                {
+                                $('#nopoints').css("display","block");
+                                }
+                            });
+                                        
+                        }
+                    </script>
+                    <!-- END SCRIPT FOR BASKET -->
     </body>
 
 <!-- Mirrored from themebeyond.com/html/geco/Geco/community.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 31 Oct 2022 12:58:13 GMT -->

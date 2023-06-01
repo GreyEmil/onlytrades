@@ -25,13 +25,13 @@ class merch{
     public function affiche()
     {
         $db=config::getConnexion();
-        $sql="Select * FROM merch where status='0'";
+        $sql="Select * FROM merch where status=0";
        return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
     public function delete($id)
     {
         $db=config::getConnexion();
-        $sql="UPDATE merch SET status='1' where id='$id'";
+        $sql="UPDATE merch SET status=1 where id='$id'";
         $db->query($sql);
     }
     public function modify($id,$info,$img)
@@ -72,7 +72,7 @@ class merch{
         {
 			if(move_uploaded_file($file_temp, $location))
             {
-                $sql = "UPDATE merch(name,price,quantity,img_url,description)
+                $sql = "UPDATE merch
                 SET img_url='$location' where id='$id'";
                 $db->query($sql);
             }

@@ -626,5 +626,148 @@ session_start();
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+  <?php
+	error_reporting(E_ERROR | E_PARSE);
+       $tab=new merch;
+       $tab0 = $tab->affiche();
+       $id=$_SESSION["user"]["id"];
+       $paniershow=new panier;
+       $product=$paniershow->showbasket($id);
+       $length=count($product);
+       $nopoints=$_GET["nopoints"];
+     ?>       
+ <!-- Script for basket -->
+                 <script>
+                    var length="<?php if($length!=0) echo $length; else echo("") ?>";
+                    var nopoints="<?php if($nopoints!=0) echo $nopoints; else echo("") ?>";
+                    var max=0;
+                    var qbas=0;
+                    product=<?php if($length!=0) echo (json_encode($product));?>;
+                    if(length!="")
+                {
+                    shopcart=document.getElementById("shopcart");
+                    for(var i=0;i<length;i++)
+                    {
+                        const li=document.createElement("li");
+                        li.className="d-flex align-items-start";
+                        shopcart.appendChild(li);
+                       const div1=document.createElement("div");
+                        div1.className="cart-img";
+                        li.appendChild(div1);
+                        const img=document.createElement("img");
+                        img.src=product[i][0];
+                        div1.appendChild(img);
+                        const div2=document.createElement("div");
+                        div2.className="cart-content";
+                        li.appendChild(div2);
+                        const h4=document.createElement("h4");
+                        div2.appendChild(h4);
+                        const p=document.createElement("p");
+                        h4.appendChild(p);
+                        p.innerHTML=product[i][1];
+                        const div3=document.createElement("div");
+                        div3.className="cart-price";
+                        div2.appendChild(div3);
+                        const span=document.createElement("span");
+                        span.className="new";
+                        span.innerHTML="QTY: "+product[i][3];
+                        div3.appendChild(span);
+                        const div4=document.createElement("div");
+                        div4.className="cart-price";
+                        div2.appendChild(div4);
+                        const span1=document.createElement("span");
+                        span1.className="new";
+                        span1.innerHTML="PRICE: "+product[i][2];
+                        div4.appendChild(span1);
+                        const div5=document.createElement("div");
+                        div5.className="del-icon";
+                        li.appendChild(div5);
+                        const form=document.createElement("form");
+                        form.method="POST";
+                        div5.appendChild(form);
+                        const a=document.createElement("a");
+                            a.href="../model/deletepanier.php?id_prod="+product[i][5];
+                            a.id=product[i][5];
+                          form.appendChild(a);
+                        const ii=document.createElement("i");
+                        ii.className="far fa-trash-alt";
+                        ii.style.color="rgb(54, 169, 225)";
+                        a.appendChild(ii);
+                        max=max+(product[i][2]*product[i][3]);
+                        qbas=qbas+product[i][3];
+                    }
+                }
+                const qofbasket=document.getElementById('qofbasket');
+                 qofbasket.innerHTML=qbas;
+                const li2=document.createElement("li");
+                            shopcart.appendChild(li2);
+                     const div6=document.createElement("div");
+                           div6.className="total-price";
+                           li2.appendChild(div6);
+                     const span2=document.createElement("span");
+                           span2.className="f-left";
+                           span2.innerHTML="TOTAL:";
+                     const span3=document.createElement("span");
+                           span3.className="f-right";
+                           span3.setAttribute("id","total");
+                           div6.appendChild(span2);
+                           div6.appendChild(span3);
+                       var total=document.getElementById('total');
+                       total.innerHTML=max+' OTP';
+                       // 
+                       const span4=document.createElement("span");
+                             span4.className="f-left";
+                             span4.style.color="red";
+                             div6.appendChild(span4);
+                             span4.innerHTML="you don't have enough points";
+                             span4.style.display="none";
+                             span4.id="nopoints";
+                       const li3=document.createElement("li");
+                            shopcart.appendChild(li3);
+                       const div7=document.createElement("div");
+                             div7.className="checkout-link";
+                             li3.appendChild(div7);
+                       const a2=document.createElement("a");
+                            a2.className="red-color";
+                            a2.id="checkout";
+                            a2.href="../model/checkout.php";
+                            a2.innerHTML="Checkout";
+                            div7.appendChild(a2);
+                            $('#checkout').click(checkout);
+                            function checkout(e){
+                            e.preventDefault();
+                            $.when($.ajax(
+                                {
+                                    url:'../model/checkout.php',
+                                    type:'POST',
+                                    data:{'check' : max},
+                                }
+                            )).then(function(data)
+                            {
+                                if(data=="enough")
+                                {
+                                    $('#shopcart').html('');
+                                    $('#qofbasket').html('0');
+                                    $.when($.ajax({
+                                        url:'../model/checkout.php',
+                                        type:'POST',
+                                        data:{'total' : max},
+                                            
+                                        })).then(
+                                        function(data)
+                                        { 
+                                           
+                                        }
+                                    )
+                                }
+                                else
+                                {
+                                $('#nopoints').css("display","block");
+                                }
+                            });
+                                        
+                        }
+                    </script>
+                    <!-- END SCRIPT FOR BASKET -->
         </body>
 </html>
