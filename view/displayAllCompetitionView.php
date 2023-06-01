@@ -396,11 +396,6 @@
                             <p>Copyright © 2022 <a href="index.php">OnlyTrades</a> All Rights Reserved.</p>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 d-none d-md-block">
-                        <div class="payment-method-img text-right">
-                            <img src="img/images/card_img.png" alt="img">
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

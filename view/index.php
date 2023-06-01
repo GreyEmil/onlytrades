@@ -191,6 +191,9 @@
                                   <a href="#">Join the community now!</a>
                                 <?php } elseif ($loggedIn == true && $user['isVerified'] == true) { ?>
                                   <a href="profile.php"><?php echo "Hello  &nbsp;" . $user['username'] ?></a>
+                                  <br>
+                                  <a href="javascript:void(0)" style="margin-right: 20px;"><?php echo $user['points'] . "&nbsp;"?>
+                                  <img src="img/icon/coin.png" style='weight:20px;height:20px;'></a>
                                 <?php } elseif ($loggedIn == true && $user['isVerified'] == false) { ?>
                                   <a href="#"><?php echo "Hello  &nbsp;" . $user['username'] . "<br> Your account is not verified! Please check your email!" ?></a>
                                 <?php }  ?>
@@ -1087,11 +1090,6 @@
                 Copyright © 2022 <a href="index.php">OnlyTrades</a> All
                 Rights Reserved.
               </p>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 d-none d-md-block">
-            <div class="payment-method-img text-right">
-              <img src="img/images/card_img.png" alt="img" />
             </div>
           </div>
         </div>
