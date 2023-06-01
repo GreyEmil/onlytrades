@@ -11,7 +11,7 @@ if (isset($_GET['code'])) {
 
     if ( $stmt->execute()) {
         echo "Your account is verified";
-        header('Location: http://localhost/foreal/view/');
+        header('Location: http://localhost/onlytrades/view/');
         die();
     }
 } else {

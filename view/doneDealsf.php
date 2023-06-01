@@ -315,7 +315,8 @@
                     <div class="container">
                     
                         <?php
-                        
+                        if($doneDeals!=0)
+                        {
                         for ($i=0 ; $i<count($doneDeals); $i++){ ?>
                         <div class="row " >
                           <div class="col ">
@@ -342,7 +343,7 @@
                             </div>   
                           </div>
                           </div>                         
-                           <?php }
+                           <?php }}
                      ?>
                      
                      </div>
