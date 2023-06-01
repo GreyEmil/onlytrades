@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require_once 'config.php';
 class merch{
    public function add($info,$img)
     {   $name=$info['namep'];

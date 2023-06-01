@@ -1,9 +1,8 @@
 <?php
-session_start();
+include('../controller/userController.php');
 require '../controller/merch.php';
+session_start();
 ?>
-
-<?php include('../controller/userController.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@ require '../controller/merch.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/miscellaneous/fav.png">
-  
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
       <!-- Fontawesome CSS Files -->
       <link rel="stylesheet" href="../../use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   
@@ -28,7 +27,7 @@ require '../controller/merch.php';
     <link rel="stylesheet" href="css/slick.css">
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/stylee.css">
+    <link rel="stylesheet" href="css/stylee.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
@@ -37,9 +36,10 @@ require '../controller/merch.php';
 
 
       
-    <title>orders</title>
+    <title>My Orders</title>
 </head>
 <body>
+<!-- preloader -->
 <div id="preloader">
     <div id="loading-center">
       <div id="loading-center-absolute">
@@ -47,8 +47,8 @@ require '../controller/merch.php';
       </div>
     </div>
   </div>
-<!-- header-area -->
-<?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
+  <!-- header-area -->
+  <?php if (isset($_SESSION['login']) && ($_SESSION['login'] == 'success')) { ?>
     <script type="text/javascript">
       $(document).ready(function() {
         toastr.options.timeOut = 2500; // 1.5s
@@ -106,35 +106,19 @@ require '../controller/merch.php';
         <div class="row align-items-center">
           <div class="col-lg-6 d-none d-lg-block">
             <div class="header-top-offer">
-              <p style="color: rgb(54, 169, 225)">Premium Offer</p>
-              <span class="coming-time" data-countdown="2022/11/15"></span>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="header-top-right">
-              <!-- <div class="header-social">
+ <div class="header-social">
                                 <ul>
                                     <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
                                     <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
                                 </ul>
-                            </div> -->
+                            </div> 
               <div class="header-top-action">
-                <ul>
-                  <li>
-                    <div class="header-top-mail">
-                      <p>
-                        <span></span>
-                        <!-- <i class="far fa-envelope"></i><a
-                                                    href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
-                                                        class="__cf_email__"
-                                                        data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
-                                                    </a> -->
-                      </p>
-                    </div>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -152,11 +136,11 @@ require '../controller/merch.php';
                 </div>
                 <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
                   <ul>
-                    <li ><a href="index.php">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <!-- <li><a href="#">Pages</a></li> -->
                     <!-- <li><a href="game-overview.html">Overview</a></li> -->
                     <!-- <li><a href="community.html">Community</a></li> -->
-                    <li ><a href="displaytrades.php">Trade</a>
+                    <li ><a href="displaytrades.php" id="trade" >Trade</a>
                                         <?php if(isset($_SESSION["user"])){?>
                                             <ul class="submenu">
                                                 <li><a href="myOnGoingTrades.php">My ongoing trades</a></li>
@@ -187,7 +171,7 @@ require '../controller/merch.php';
                                         </li> -->
                     <li><a href="categories.php">FORUM</a></li>
                     <li >
-                                    <a id="repnav" href="ajouterreclamation.php">Report</a>
+                                    <a  href="ajouterreclamation.php" id="report">Report</a>
                                     <?php if(isset($_SESSION["user"])){?>
                                     <ul style="display: flex;flex-direction: column;" class="submenu">
                                     
@@ -475,6 +459,152 @@ require '../controller/merch.php';
 </section>
 <!-- game-manage-area-end -->
 </main>
+<!-- footer-area -->
+<footer>
+    <div class="footer-top footer-bg s-footer-bg">
+      <!-- newsletter-area -->
+      <div class="newsletter-area s-newsletter-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="newsletter-wrap">
+                <div class="section-title newsletter-title">
+                  <h2>Our <span>Newsletter</span></h2>
+                </div>
+                <div class="newsletter-form">
+                  <form action="#">
+                    <div class="newsletter-form-grp">
+                      <i class="far fa-envelope"></i>
+                      <input type="email" placeholder="Enter your email..." />
+                    </div>
+                    <button>
+                      SUBSCRIBE <i class="fas fa-paper-plane"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- newsletter-area-end -->
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="footer-widget mb-50">
+              <div class="footer-logo mb-35">
+                <a href="index.php"><img src="img/favicon.png" class="logof" alt="logo_footer  " /></a>
+              </div>
+              <div class="footer-text">
+                <div class="footer-contact">
+                  <ul>
+                    <li>
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span>Address : </span>Agba tunisie
+                    </li>
+                    <li>
+                      <i class="fas fa-headphones"></i>
+                      <span>Phone : </span>+216 99819166
+                    </li>
+                    <li>
+                      <i class="fas fa-envelope-open"></i><span>Email : </span><a>only.trades.tn@gmail.com</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-sm-6">
+            <div class="footer-widget mb-50">
+              <div class="fw-title mb-35">
+                <h5>Pages</h5>
+              </div>
+              <div class="fw-link">
+                <ul>
+                  <li><a href="displaytrades.php">Trade</a></li>
+                  <li><a href="auctions.php">Auction</a></li>
+                  <li><a href="POINTSSHOP.php">Points Shop</a></li>
+                  <li><a href="categories.php">Forum</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-3 col-sm-6">
+            <div class="footer-widget mb-50">
+              <div class="fw-title mb-35">
+                <h5>Need Help?</h5>
+              </div>
+              <div class="fw-link">
+                <ul>
+                  <li><a href="ajouterreclamation.php">Report</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="footer-widget mb-50">
+              <div class="fw-title mb-35">
+                <h5>Follow us</h5>
+              </div>
+              <div class="footer-social">
+                <ul>
+                  <li>
+                    <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"><i class="fab fa-pinterest-p"></i></a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer-widget mb-50">
+              <div class="fw-title mb-35">
+                <h5>Newsletter Sign Up</h5>
+              </div>
+              <div class="footer-newsletter">
+                <form action="#">
+                  <input type="text" placeholder="Enter your email" />
+                  <button><i class="fas fa-rocket"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-fire footer-fire-right">
+        <img src="img/images/footer_axe.png" height="306px" alt="axe_footer" />
+      </div>
+      <div class="footer-fire">
+        <img src="img/images/pickaxe_footer.png" height="299px" alt="pickaxe_footer" />
+      </div>
+    </div>
+    <div class="copyright-wrap s-copyright-wrap">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <div class="copyright-text">
+              <p>
+                Copyright © 2022 <a href="index.php">OnlyTrades</a> All
+                Rights Reserved.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 d-none d-md-block">
+            <div class="payment-method-img text-right">
+              <img src="img/images/card_img.png" alt="img" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- footer-area-end -->
           <script src="js/scripts.js"></script>
           <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script src="js/vendor/jquery-3.4.1.min.js"></script>

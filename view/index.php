@@ -99,35 +99,19 @@
         <div class="row align-items-center">
           <div class="col-lg-6 d-none d-lg-block">
             <div class="header-top-offer">
-              <p style="color: rgb(54, 169, 225)">Premium Offer</p>
-              <span class="coming-time" data-countdown="2022/11/15"></span>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="header-top-right">
-              <!-- <div class="header-social">
+ <div class="header-social">
                                 <ul>
                                     <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
                                     <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
                                 </ul>
-                            </div> -->
+                            </div> 
               <div class="header-top-action">
-                <ul>
-                  <li>
-                    <div class="header-top-mail">
-                      <p>
-                        <span></span>
-                        <!-- <i class="far fa-envelope"></i><a
-                                                    href="https://themebeyond.com/cdn-cgi/l/email-protection#85ecebe3eac5e2e8e4ece9abe6eae8"><span
-                                                        class="__cf_email__"
-                                                        data-cfemail="076e69616847606264686e6961682964686a">[email&#160;protected]</span>
-                                                    </a> -->
-                      </p>
-                    </div>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -1006,23 +990,18 @@
                 <a href="index.php"><img src="img/favicon.png" class="logof" alt="logo_footer  " /></a>
               </div>
               <div class="footer-text">
-                <p>
-                  Gemas marketplace the relase etras thats sheets continig
-                  passag.
-                </p>
                 <div class="footer-contact">
                   <ul>
                     <li>
                       <i class="fas fa-map-marker-alt"></i>
-                      <span>Address : </span>PO Box W75 Street lan West new
-                      queens
+                      <span>Address : </span>Agba tunisie
                     </li>
                     <li>
                       <i class="fas fa-headphones"></i>
-                      <span>Phone : </span>+24 1245 654 235
+                      <span>Phone : </span>+216 99819166
                     </li>
                     <li>
-                      <i class="fas fa-envelope-open"></i><span>Email : </span><a href="https://themebeyond.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="761f18101936130e131b061a135815191b">[email&#160;protected]</a>
+                      <i class="fas fa-envelope-open"></i><span>Email : </span><a>only.trades.tn@gmail.com</a>
                     </li>
                   </ul>
                 </div>
@@ -1032,15 +1011,14 @@
           <div class="col-xl-2 col-lg-3 col-sm-6">
             <div class="footer-widget mb-50">
               <div class="fw-title mb-35">
-                <h5>Products</h5>
+                <h5>Pages</h5>
               </div>
               <div class="fw-link">
                 <ul>
-                  <li><a href="#">Graphics (26)</a></li>
-                  <li><a href="#">Backgrounds (11)</a></li>
-                  <li><a href="#">Fonts (9)</a></li>
-                  <li><a href="#">Music (3)</a></li>
-                  <li><a href="#">Photography (3)</a></li>
+                  <li><a href="displaytrades.php">Trade</a></li>
+                  <li><a href="auctions.php">Auction</a></li>
+                  <li><a href="POINTSSHOP.php">Points Shop</a></li>
+                  <li><a href="categories.php">Forum</a></li>
                 </ul>
               </div>
             </div>
@@ -1052,11 +1030,7 @@
               </div>
               <div class="fw-link">
                 <ul>
-                  <li><a href="#">Terms & Conditions</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Refund Policy</a></li>
-                  <li><a href="#">Affiliate</a></li>
-                  <li><a href="#">FAQUse Cases</a></li>
+                  <li><a href="ajouterreclamation.php">Report</a></li>
                 </ul>
               </div>
             </div>
@@ -1069,16 +1043,16 @@
               <div class="footer-social">
                 <ul>
                   <li>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="javascript:void(0)"><i class="fab fa-pinterest-p"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a>
                   </li>
                 </ul>
               </div>
