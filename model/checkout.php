@@ -144,26 +144,26 @@ $pdf=$dompdf->output();
 $user_email = $checkout->email($id);
 $mail = new PHPMailer(true);
 $mail->AddEmbeddedImage('img/favicon.png', 'my-image');
-$body='<html><body><center><a href="http://localhost/github/foreal/view/index.php"><img src="cid:my-image" width="100" height="100"></a>
+$body='<html><body><center><a href="http://localhost/onlytrades/view/index.php"><img src="cid:my-image" width="100" height="100"></a>
 </center>
 <p><hr NOSHADE></p>
 <center><h1>Hello '.$pdf1[1].' '.$pdf1[0].'</h1></center>
 <center><h3>Congratulation for buying a product from our merch with your OTP</h3></center>
 <p><hr NOSHADE></p></body></html>
-<a href="http://localhost/github/foreal/view/index.php">OnlyTrades</a>
+<a href="http://localhost/onlytrades/view/index.php">OnlyTrades</a>
 ';
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'otonlytrades@gmail.com';                     //SMTP username
-    $mail->Password   = 'fdgrjbldgwkorvkt';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->Username = 'only.trades.tn@gmail.com'; //SMTP username
+    $mail->Password = 'hbebdhacbzaamzoi'; //SMTP password
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;                                 //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-     $mail->setFrom('otonlytrades@gmail.com','OnlyTrades');
+     $mail->setFrom('only.trades.tn@gmail.com','OnlyTrades');
      $mail->addAddress($user_email);
      $mail->addStringAttachment($pdf, $namepdf.'.pdf');       //Name is optional
 

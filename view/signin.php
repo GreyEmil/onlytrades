@@ -21,7 +21,7 @@
   <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css" />
   <!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="css/util.css" />toastr
+  <link rel="stylesheet" type="text/css" href="css/util.css" />
   <link rel="stylesheet" type="text/css" href="css/login.css" />
   <!--===============================================================================================-->
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
