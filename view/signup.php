@@ -74,7 +74,7 @@
               Register <span style="color: rgb(54, 169, 225)">Now !</span>
             </h2>
 
-            <form  id="formid" method="POST" action="../controller//userController.php" enctype="multipart/form-data">
+            <form  id="formid" method="POST" action="../controller/userController.php" enctype="multipart/form-data">
             <div class="row row-space">
                   <div class="col-2">
                     <div class="input-group">

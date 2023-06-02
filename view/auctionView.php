@@ -226,7 +226,7 @@ require_once "../model/auctionModel.php";
                               </div>
                             <?php } elseif ($loggedIn == true && $user['role'] == 'ADMIN'  && $user['isVerified'] == true) { ?>
                               <div class="checkout-link">
-                                <a href="backendfinale.php">Admin Dashboard</a>
+                                <a href="dashboard-view-users.php">Admin Dashboard</a>
                                 <a class="red-color" href="logout.php">Log Out</a>
                               </div>
                             <?php } elseif ($loggedIn == true &&  $user['isVerified'] == false) { ?>
