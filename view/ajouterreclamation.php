@@ -224,7 +224,7 @@
                                 <a href="profile.php">Member Profile </a>
                                 <a class="red-color" href="logout.php">Log Out</a>
                               </div>
-                            <?php } elseif ($loggedIn == true && $user['role'] == 'ADMIN'  && $user['isVerified'] == true) { ?>
+                            <?php } elseif ($loggedIn == true && ($user['role'] == 'ADMIN' || $user['role'] == 'SUPER ADMIN')  && $user['isVerified'] == true) { ?>
                               <div class="checkout-link">
                                 <a href="dashboard-view-users.php">Admin Dashboard</a>
                                 <a class="red-color" href="logout.php">Log Out</a>
